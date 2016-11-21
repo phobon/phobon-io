@@ -35,3 +35,13 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+node_modules/
+typings/browser/
+typings/main/
+bin/
+views/
+routes/
+public/scripts/
+public/stylesheets/
+public/images/designs/
