@@ -1,5 +1,5 @@
 import { ISlider, Slider, IPane } from "slider/main";
-import * as Panes from "panes";
+import * as Panes from "panes/main";
 
 var instance: ISlider;
 

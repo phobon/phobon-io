@@ -1,4 +1,4 @@
-import { IPane, Pane } from "slider/main";
+import { Pane } from "slider/main";
 
 export class Home extends Pane {
     private _header: JQuery;
@@ -88,48 +88,6 @@ export class Home extends Pane {
         $.Velocity.RunSequence(s);
 
         return p;      
-    }
-
-    protected backgroundActions(): Promise<void> {
-        return Promise.resolve();
-    }
-}
-
-export class Hundred extends Pane {
-    constructor() {
-        super("100ui");
-    }
-
-    protected layout() {
-    }
-
-    protected enterActions(): Promise<void> {
-        return Promise.resolve();      
-    }
-
-    protected exitActions(): Promise<void> {
-        return Promise.resolve();  
-    }
-
-    protected backgroundActions(): Promise<void> {
-        return Promise.resolve();
-    }
-}
-
-export class Contact extends Pane {
-    constructor() {
-        super("contact");
-    }
-
-    protected layout() {
-    }
-
-    protected enterActions(): Promise<void> {
-        return Promise.resolve();       
-    }
-
-    protected exitActions(): Promise<void> {
-        return Promise.resolve();  
     }
 
     protected backgroundActions(): Promise<void> {

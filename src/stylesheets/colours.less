@@ -1,0 +1,162 @@
+﻿/*
+    A collection of colours used in boab. These may change in the future depending on how we do our bundling and build process.
+    This file will generate a series of lightweight classes for each of the colours below:
+
+    .@{color} : foreground colour
+    .@{color}-bg : background colour
+    .@{color}-f : fill colour
+    .@{color}-t-bg : transparent background colour
+    .@{color}-br : border colour
+
+    .@{color}-l | -bg | -f | -t : light
+    .@{color}-h | -bg | -f | -t : heavy
+*/
+
+/* Colors */
+@c-black:                       #000;
+@c-white:                       #FFF;
+
+/* Accents */
+@c-acquireblue:                 #00acc8;
+@c-acquirered:                  #ee3342;
+
+@c-blue:                        #1BA1E2;
+@c-green:                       #339933;
+@c-magenta:                     #FF0097;
+@c-orange:                      #F09609;
+@c-red:                         #E51400;
+
+@c-brown:                       #A05000;
+@c-emerald:                     #008a00;
+@c-lime:                        #8CBF26;
+@c-mustard:                     #d7c000;
+@c-pink:                        #E671B8;
+@c-purple:                      #A200FF;
+@c-teal:                        #00ABA9;
+
+@c-pastelblue:                  #54b3e3;
+@c-pastelgreen:                 #75a842;
+@c-pastelorange:                #fa8d3e;
+@c-pastelred:                   #e64839;
+
+@c-gray-ll:                     #f2f2f2;
+@c-gray-l:                      #e0e0e0;
+@c-gray-m:                      #a0a0a0;
+@c-gray-h:                      #606060;
+@c-gray-hh:                     #373737;
+
+@c-transparent:                 rgba(0, 0, 0, 0);
+
+@colours: 
+    black @c-black, 
+    white @c-white, 
+    acquireblue @c-acquireblue, 
+    acquirered @c-acquirered, 
+    blue @c-blue, 
+    green @c-green, 
+    magenta @c-magenta, 
+    orange @c-orange, 
+    red @c-red,
+    brown @c-brown,
+    emerald @c-emerald,
+    lime @c-lime,
+    mustard @c-mustard,
+    pink @c-pink,
+    purple @c-purple,
+    teal @c-teal,
+    pastelblue @c-pastelblue,
+    pastelgreen @c-pastelgreen,
+    pastelorange @c-pastelorange,
+    pastelred @c-pastelred,
+    gray-ll @c-gray-ll,
+    gray-l @c-gray-l,
+    gray-m @c-gray-m,
+    gray-h @c-gray-h,
+    gray-hh @c-gray-hh,
+    transparent @c-transparent;
+
+.color-proc(@label, @color) {
+    /* Generic - color, background, fill and transparent */
+    .c-@{label} {
+        color: @color;
+    }
+
+    .c-@{label}-bg {
+        background-color: @color;
+    }
+
+    .c-@{label}-f {
+        fill: @color;
+    }
+
+    .c-@{label}-t-bg {
+        background-color: fadeout(@color, 30%);
+    }
+    .c-@{label}-tt-bg {
+        background-color: fadeout(@color, 60%);
+    }
+
+    /* Lights, darks and corresponding transparents */
+    @color-l: lighten(@color, 5%);
+    @color-h: darken(@color, 5%);    
+    .c-@{label}-l {
+        color: @color-l;
+    }
+
+    .c-@{label}-l-bg {
+        background-color: @color-l;
+    }
+
+    .c-@{label}-l-f {
+        fill: @color-l;
+    }
+
+    .c-@{label}-l-t-bg {
+        background-color: fadeout(@color-l, 30%);
+    }
+    .c-@{label}-l-tt-bg {
+        background-color: fadeout(@color-l, 60%);
+    }
+
+    .c-@{label}-h {
+        color: @color-h;
+    }
+
+    .c-@{label}-h-bg {
+        background-color: @color-h;
+    }
+
+    .c-@{label}-h-f {
+        fill: @color-h;
+    }
+
+    .c-@{label}-h-t-bg {
+        background-color: fadeout(@color-h, 30%);
+    }
+    .c-@{label}-h-tt-bg {
+        background-color: fadeout(@color-h, 60%);
+    }
+    /* Border colours */
+    .c-@{label}-br {
+        border-color: @color;
+    }
+    .c-@{label}-l-br {
+        border-color: @color-l;
+    }
+    .c-@{label}-h-br {
+        border-color: @color-h;
+    }
+}
+.color-procs(@iterator:1) when (@iterator <= length(@colours)) {
+    @label: extract(extract(@colours, @iterator), 1);
+    @color: extract(extract(@colours, @iterator), 2);
+
+    .color-proc(@label, @color);
+
+    .color-procs((@iterator + 1));
+}
+.color-procs();
+
+.bg-none {
+    background: none;
+}

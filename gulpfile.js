@@ -24,13 +24,12 @@ var rename = require('gulp-rename');
 
 // Use this task to just compile the typescript
 gulp.task('tsc', function() {
-    var result = gulp.src(['./src/**/*.ts', './typings/main/**/*.ts'])    
+    var result = gulp.src(['./src/**/*.ts', './typings/**/*.ts'])    
         .pipe(sourcemaps.init())
         .pipe(tsc({
             noResolve: false,
             target: 'ES6',
-            module: 'commonjs',
-            moduleResolution: 'classic'
+            module: 'system'
         }));
         
     return result.js
@@ -52,7 +51,9 @@ gulp.task('less', function() {
 gulp.task('clean', function() {    
     return gulp.src(['./public/scripts/*.js'])
         .pipe(clean());
-})
+});
+
+gulp.task('dev', ['clean', 'tsc']);
 
 // Build our release files - if you don't mind compiling taking a couple of seconds, use this.
 gulp.task('release', ['clean', 'tsc', 'less'], function() {

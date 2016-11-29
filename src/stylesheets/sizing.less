@@ -1,0 +1,145 @@
+﻿/* 
+    Modular css to define sizing-related classes - not to be confused with layout.     
+
+    This will generate classes that represent margins, paddings, widths and heights.
+
+    .m-none: no margin
+    .m-@{size} : margin on all sides
+    .m-l-@{size} : left margin
+    .m-r-@{size} : right margin
+    .m-t-@{size} : top margin
+    .m-b-@{size} : bottom margin
+    .m-horizontal-@{size} : left and right margin
+    .m-vertical-@{size}: top and bottom margin
+
+    .p- | none | l | r | t | b | horizontal | vertical | - @{size} : paddings
+
+    .w-@{size} : width
+    .w-min-@{size} : min-width
+    .h-@{size} : height
+    .h-min-@{size} : min-height
+*/
+
+@s-auto:        auto;
+@s-none:        0rem;
+@s-nano:        0.25rem;
+@s-tiny:        0.5rem;
+@s-small:       1rem;
+@s-medium:      1.5rem;
+@s-large:       2rem;
+@s-huge:        3rem;
+@s-massive:     4rem;
+
+@sizes: auto @s-auto, none @s-none, nano @s-nano, tiny @s-tiny, small @s-small, medium @s-medium, large @s-large, huge @s-huge, massive @s-massive;
+
+@s-100:         100;
+@s-90:          90;
+@s-80:          80;
+@s-70:          70;
+@s-60:          60;
+@s-50:          50;
+@s-40:          40;
+@s-33:          33.3333333333;
+@s-30:          30;
+@s-25:          25;
+@s-20:          20;
+@s-15:          15;
+@s-10:          10;
+
+@column-sizes: @s-100, @s-90, @s-80, @s-70, @s-60, @s-50, @s-40, @s-30, @s-25, @s-20, @s-15, @s-10;
+
+.sizing-procs(@iterator:1) when (@iterator <= length(@sizes)) {
+    @label: extract(extract(@sizes, @iterator), 1);
+    @size: extract(extract(@sizes, @iterator), 2);
+
+    /* Margins */
+    .m-@{label} {
+        margin: @size;
+    }   
+    .m-l-@{label} {
+        margin-left: @size;
+    }
+    .m-r-@{label} {
+        margin-right: @size;
+    }
+    .m-horizontal-@{label} {
+        margin-left: @size;
+        margin-right: @size;
+    }
+    .m-t-@{label} {
+        margin-top: @size;
+    }
+    .m-b-@{label} {
+        margin-bottom: @size;
+    }
+    .m-vertical-@{label} {
+        margin-top: @size;
+        margin-bottom: @size;
+    }
+
+    /* Paddings */
+    .p-@{label} {
+        padding: @size;
+    }
+    .p-l-@{label} {
+        padding-left: @size;
+    }
+    .p-r-@{label} {
+        padding-right: @size;
+    }
+    .p-horizontal-@{label} {
+        padding-left: @size;
+        padding-right: @size;
+    }   
+    .p-t-@{label} {
+        padding-top: @size;
+    }
+    .p-b-@{label} {
+        padding-bottom: @size;
+    }
+    .p-vertical-@{label} {
+        padding-top: @size;
+        padding-bottom: @size;
+    }
+
+    /* Height & Width */
+    .h-@{label} {
+        height: @size;
+    }
+    .h-min-@{label} {
+        min-height: @size;
+    }
+    .w-@{label} {
+        width: @size;
+    }
+    .w-min-@{label} {
+        min-width: @size;
+    }
+
+    .sizing-procs(@iterator + 1);
+}
+.sizing-procs();
+
+/* Grid sizing */
+.grid-proc(@label, @size) {
+    .w-@{label} {
+        width: @size;
+    }
+    .w-max-@{label} {
+        max-width: @size;
+    }
+    .h-@{label} {
+        height: @size;
+    }
+    .h-max-@{label} {
+        max-height: @size;
+    }
+}
+.grid-procs(@iterator:1) when (@iterator <= length(@column-sizes)) {
+    @label: extract(@column-sizes, @iterator);
+    @size: (@label * 1%);
+    .grid-proc(@label, @size);
+    .grid-procs((@iterator + 1));
+}
+.grid-procs();
+.grid-proc("33", @s-33);

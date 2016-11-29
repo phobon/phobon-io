@@ -1,0 +1,64 @@
+﻿/*
+    Font sizes.
+    The base font sizes are extremely important, because it handles all sizing. We use rem for our sizing to create a consistent experience
+    across responsive environments.
+*/
+@base-font-size:    16px;
+@base-font-size-responsive: 32px;
+
+@font-factor:       1rem;
+
+@f1:                5 * @font-factor;
+@f2:                4 * @font-factor;
+@f3:                3 * @font-factor;
+@f4:                2 * @font-factor;
+@f5:                1 * @font-factor;
+@f6:                0.875rem;
+@f7:                0.75rem;
+
+.f1 {
+    font-size: @f1;
+}
+
+.f2 {
+    font-size: @f2;
+}
+
+.f3 {
+    font-size: @f3;
+}
+
+.f4 {
+    font-size: @f4;
+}
+
+.f5 {
+    font-size: @f5;
+}
+
+.f6 {
+    font-size: @f6;
+}
+
+.f7 {
+    font-size: @f7;
+}
+
+/* Set the base font size on our html element. */
+html {
+    font-size: @base-font-size;
+}
+
+/* Set the font size again as we want it to be slightly smaller than the base font size. */
+body {
+    .f6;
+}
+
+/*
+    Responsive media query for mobile devices.
+*/
+@media only screen and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+    html {
+        font-size: @base-font-size-responsive !important;
+    }
+}
