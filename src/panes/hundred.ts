@@ -1,8 +1,8 @@
-import { Pane } from "slider/main";
+import { Pane, ISlider } from "./../slider/main";
 
 export class Hundred extends Pane {
-    constructor() {
-        super("100ui");
+    constructor(parent: ISlider) {
+        super("hundred", parent);
     }
 
     protected layout() {

@@ -1,14 +1,14 @@
-import { ISlider, Slider, IPane } from "slider/main";
-import * as Panes from "panes/main";
+import { ISlider, Slider, IPane } from "./slider/main";
+import * as Panes from "./panes/main";
 
 var instance: ISlider;
 
 class Phobon extends Slider {
     protected initPanes() {
         this.panes.push(
-            new Panes.Home(),
-            new Panes.Hundred(), 
-            new Panes.Contact());        
+            new Panes.Home(this),
+            new Panes.Hundred(this), 
+            new Panes.Contact(this));        
     }
 
     protected initNavigation() {

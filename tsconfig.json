@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "sourceMap": true,
-        "module": "system",
+        "module": "commonjs",
         "target": "es6"
     },
     "exclude": [

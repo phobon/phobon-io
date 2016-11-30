@@ -1,8 +1,8 @@
-import { Pane } from "slider/main";
+import { Pane, ISlider } from "./../slider/main";
 
 export class Contact extends Pane {
-    constructor() {
-        super("contact");
+    constructor(parent: ISlider) {
+        super("contact", parent);
     }
 
     protected layout() {

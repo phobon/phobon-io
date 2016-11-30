@@ -1,4 +1,4 @@
-import { ISlider, IPane } from "models";
+import { ISlider, IPane } from "./models";
 
 export abstract class Slider implements ISlider {
     private _host: JQuery;    
@@ -42,22 +42,32 @@ export abstract class Slider implements ISlider {
     }
 
     set currentPane(value: IPane) {
-        if (value.id === this._currentPane.id) {
-            console.log(`Pane with the id: ${value.id} already current pane.`);
-            return;
-        }
-
         if (this.isStateChanging) {
             console.log(`Cannot change current pane while state is changing.`);
         }
 
         this._isStateChanging = true;
-        this._currentPane.exit().then(() => {
+
+        var setPane = () => {
+            debugger;
             this._currentPane = value;
             this._currentPane.enter().then(() => {
                 this._isStateChanging = false;
             });
-        });
+        };
+
+        if (this._currentPane) {
+            if (value.id === this._currentPane.id) {
+                console.log(`Pane with the id: ${value.id} already current pane.`);
+                return;
+            }
+
+            this._currentPane.exit().then(() => {
+                setPane();                
+            });
+        } else {
+            setPane();
+        }        
     }
 
     protected abstract initPanes();
@@ -73,6 +83,7 @@ export abstract class Slider implements ISlider {
         this._site = $("<div class='fixed w-100 h-100' style='left:0;top:0'/>").appendTo(this._host);
 
         // Initialize specific abstract items.
+        this._panes = [];
         this.initPanes();
         this.initNavigation();
     }

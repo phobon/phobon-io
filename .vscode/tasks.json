@@ -10,7 +10,7 @@
     "tasks": [
         {
             "taskName": "dev",
-            "showOutput": "silent",
+            "showOutput": "always",
             "isBuildCommand": true
         }
     ]

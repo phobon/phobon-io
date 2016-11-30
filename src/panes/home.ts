@@ -1,11 +1,11 @@
-import { Pane } from "slider/main";
+import { Pane, ISlider } from "./../slider/main";
 
 export class Home extends Pane {
     private _header: JQuery;
     private _blurb: JQuery;
 
-    constructor() {
-        super("home");
+    constructor(parent: ISlider) {
+        super("home", parent);
     }
 
     protected layout() {
@@ -15,7 +15,7 @@ export class Home extends Pane {
     }
 
     protected enterActions(): Promise<void> {
-        var p: Promise<void>;
+        var p: Promise<void> = new Promise((resolve, reject) => {});
 
         var s = [
             { 
@@ -53,7 +53,7 @@ export class Home extends Pane {
     }
 
     protected exitActions(): Promise<void> {
-        var p: Promise<void>;
+        var p: Promise<void> = new Promise((resolve, reject) => {});
 
         var s = [            
             { 

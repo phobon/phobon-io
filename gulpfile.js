@@ -13,6 +13,7 @@ var source = require("vinyl-source-stream");
 var buffer = require("vinyl-buffer");
 
 // Minifying
+var babel = require("gulp-babel");
 var uglify = require("gulp-uglify");
 
 // Stylesheet transpiling
@@ -27,9 +28,8 @@ gulp.task('tsc', function() {
     var result = gulp.src(['./src/**/*.ts', './typings/**/*.ts'])    
         .pipe(sourcemaps.init())
         .pipe(tsc({
-            noResolve: false,
             target: 'ES6',
-            module: 'system'
+            module: 'commonjs'            
         }));
         
     return result.js
@@ -53,7 +53,28 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
-gulp.task('dev', ['clean', 'tsc']);
+gulp.task('dev', ['clean', 'tsc', 'less'], function() {
+    var bundledStream = through();
+    
+    // Set up our bundled stream with the output that we want to achieve.
+    bundledStream
+        .pipe(source('./public/scripts/phobon.dev.js'))
+        .pipe(new buffer())   
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(gulp.dest('./'));        
+    
+    // Match files based on a pattern and pipe into our bundled stream.
+    globby(['./public/scripts/*.js', './public/scripts/**/*.js']).then(function(entries) {
+        var b = browserify({ entries: entries }); 
+        b.bundle().pipe(bundledStream);
+    }).catch(function(err) {
+        bundledStream.emit('error', err);
+    });
+    
+    return bundledStream;
+});
 
 // Build our release files - if you don't mind compiling taking a couple of seconds, use this.
 gulp.task('release', ['clean', 'tsc', 'less'], function() {
@@ -63,11 +84,14 @@ gulp.task('release', ['clean', 'tsc', 'less'], function() {
     bundledStream
         .pipe(source('./public/scripts/phobon.min.js'))
         .pipe(new buffer())   
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(uglify())
         .pipe(gulp.dest('./'));        
     
     // Match files based on a pattern and pipe into our bundled stream.
-    globby(['./public/scripts/*.js']).then(function(entries) {
+    globby(['./public/scripts/*.js', './public/scripts/**/*.js']).then(function(entries) {
         var b = browserify({ entries: entries }); 
         b.bundle().pipe(bundledStream);
     }).catch(function(err) {

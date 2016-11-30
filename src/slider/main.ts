@@ -1,3 +1,3 @@
-export * from "models";
-export * from "pane";
-export * from "slider";
+export * from "./models";
+export * from "./pane";
+export * from "./slider";

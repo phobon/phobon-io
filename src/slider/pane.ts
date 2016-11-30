@@ -1,4 +1,4 @@
-import { IPane, ISlider } from "models";
+import { IPane, ISlider } from "./models";
 
 export abstract class Pane implements IPane {
     private _id: string;
@@ -6,8 +6,9 @@ export abstract class Pane implements IPane {
 
     protected _site: JQuery;
     
-    constructor(id: string) {
+    constructor(id: string, parent: ISlider) {
         this._id = id;
+        this._parent = parent;
     }
 
     get id(): string {
@@ -19,7 +20,7 @@ export abstract class Pane implements IPane {
     }    
 
     enter(): Promise<void> {
-        var p: Promise<void>;
+        var p: Promise<void> = new Promise((resolve, reject) => {});
 
         // If the site hasn't yet been built, build it now.
         if (!this._site) {
