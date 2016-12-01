@@ -4,6 +4,9 @@ export abstract class Pane implements IPane {
     private _id: string;
     private _parent: ISlider;
 
+    private _activeBackground: JQuery;
+    protected _backgroundClass: string;
+
     protected _site: JQuery;
     
     constructor(id: string, parent: ISlider) {
@@ -20,27 +23,27 @@ export abstract class Pane implements IPane {
     }    
 
     enter(): Promise<void> {
-        var p: Promise<void> = new Promise((resolve, reject) => {});
+        var p: Promise<void> = new Promise((resolve, reject) => { 
+            // If the site hasn't yet been built, build it now.
+            if (!this._site) {
+                this.layout();
+            }
 
-        // If the site hasn't yet been built, build it now.
-        if (!this._site) {
-            this.layout();
-        }
+            // Append to the site to the parent so we can actually start to see it.
+            this._site.appendTo(this.parent.site);
 
-        // Append to the site to the parent so we can actually start to see it.
-        this._site.appendTo(this.parent.site);
-
-        this.backgroundActions().then(() => {
-            this.enterActions().then(() => {
-                p = Promise.resolve();
+            this.backgroundActions(this.parent.backgrounds).then(() => {
+                this.enterActions().then(() => {
+                    resolve();
+                });
             });
-        });
+        });        
 
         return p;
     }
 
     exit(): Promise<void> {
-        return this.exitActions().then(() => {
+        return this.exitActions().then(() => {            
             // Remove the site at this point because we don't need it until later.
             this._site.detach();
         });
@@ -50,5 +53,38 @@ export abstract class Pane implements IPane {
 
     protected abstract enterActions(): Promise<void>;
     protected abstract exitActions(): Promise<void>;
-    protected abstract backgroundActions(): Promise<void>;
+
+    private backgroundActions(targets: { top: JQuery; bottom: JQuery }): Promise<void> {
+        let p: Promise<void> = new Promise<void>((resolve, reject) => {
+            // Swap the top and bottom backgrounds.
+            targets.top.css("z-index", 0);
+            targets.bottom.css("z-index", 1);            
+            targets.bottom.removeClass("d-none");            
+
+            // Apply the relevant background gradient to the correct background.
+            targets.bottom.addClass(this._backgroundClass);
+            targets.bottom.data("bg", this._backgroundClass);
+
+            targets.bottom.velocity(
+                { 
+                    opacity: [ 1, 0 ] 
+                }, 
+                { 
+                    duration: 2000,
+                    easing: "easeOutExpo",
+                    complete: () => {
+                        targets.top.addClass("d-none");
+                        targets.top.css({ "opacity": 0 });
+                        let bg = targets.top.data("bg");
+                        if (bg) {
+                            targets.top.removeClass(bg);
+                        }
+
+                        resolve();
+                    }
+                });
+        });
+
+        return p;
+    }
 }

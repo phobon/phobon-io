@@ -3,9 +3,11 @@ import { Pane, ISlider } from "./../slider/main";
 export class Contact extends Pane {
     constructor(parent: ISlider) {
         super("contact", parent);
+        this._backgroundClass = "gr-contact";
     }
 
     protected layout() {
+        this._site = $("<div><h2>contact</h2></div>");
     }
 
     protected enterActions(): Promise<void> {
@@ -14,9 +16,5 @@ export class Contact extends Pane {
 
     protected exitActions(): Promise<void> {
         return Promise.resolve();  
-    }
-
-    protected backgroundActions(): Promise<void> {
-        return Promise.resolve();
     }
 }

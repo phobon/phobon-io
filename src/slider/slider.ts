@@ -6,9 +6,12 @@ export abstract class Slider implements ISlider {
     private _panes: IPane[];
     private _currentPane: IPane;
 
-    private _isStateChanging: boolean; 
+    private _isStateChanging: boolean = false; 
 
-    protected _background: JQuery;
+    // Backgrounds for transitions.
+    private _backgrounds: { [index: string]: JQuery } = {};
+    private _currentTopBackground: "1" | "2";
+
     protected _site: JQuery;    
     protected _navigation: JQuery;
 
@@ -17,8 +20,17 @@ export abstract class Slider implements ISlider {
         this.init();
     }
 
-    get background(): JQuery {
-        return this._background;
+    get backgrounds(): { top: JQuery; bottom: JQuery } {
+        var b: { top: JQuery; bottom: JQuery };
+        if (this._currentTopBackground === "1") {
+            b = { top: this._backgrounds["1"], bottom: this._backgrounds["2"] };
+            this._currentTopBackground = "2";
+        } else {
+            b = { top: this._backgrounds["2"], bottom: this._backgrounds["1"] };
+            this._currentTopBackground = "1";
+        }
+
+        return b;
     }
 
     get site(): JQuery {
@@ -44,12 +56,12 @@ export abstract class Slider implements ISlider {
     set currentPane(value: IPane) {
         if (this.isStateChanging) {
             console.log(`Cannot change current pane while state is changing.`);
+            return;
         }
 
         this._isStateChanging = true;
 
         var setPane = () => {
-            debugger;
             this._currentPane = value;
             this._currentPane.enter().then(() => {
                 this._isStateChanging = false;
@@ -79,8 +91,9 @@ export abstract class Slider implements ISlider {
         this._host.addClass("f w-100 h-100");         
 
         // Build the sites as necessary.
-        this._background = $("<div class='fixed w-100 h-100 pe-none' style='left:0;top:0'/>").appendTo(this._host);
-        this._site = $("<div class='fixed w-100 h-100' style='left:0;top:0'/>").appendTo(this._host);
+        this._backgrounds["1"] = $("<div class='fixed w-100 h-100 pe-none' style='left:0;top:0;z-index:1'/>").appendTo(this._host);
+        this._backgrounds["2"] = $("<div class='fixed w-100 h-100 pe-none d-none' style='left:0;top:0;opacity:0;z-index:0'/>").appendTo(this._host);
+        this._site = $("<div class='fixed w-100 h-100' style='left:0;top:0;z-index:2'/>").appendTo(this._host);
 
         // Initialize specific abstract items.
         this._panes = [];

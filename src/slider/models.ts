@@ -6,7 +6,7 @@ export interface IPane {
 }
 
 export interface ISlider {
-    background: JQuery;      
+    backgrounds: { top: JQuery; bottom: JQuery };      
     site: JQuery;
     navigation: JQuery;
 
