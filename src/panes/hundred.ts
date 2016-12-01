@@ -2,7 +2,7 @@ import { Pane, ISlider } from "./../slider/main";
 
 export class Hundred extends Pane {
     constructor(parent: ISlider) {
-        super("hundred", parent);
+        super("hundred", "round", parent);
         this._backgroundClass = "gr-100";
     }
 

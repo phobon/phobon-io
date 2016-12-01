@@ -2,7 +2,7 @@ import { Pane, ISlider } from "./../slider/main";
 
 export class Contact extends Pane {
     constructor(parent: ISlider) {
-        super("contact", parent);
+        super("contact", "square", parent);
         this._backgroundClass = "gr-contact";
     }
 

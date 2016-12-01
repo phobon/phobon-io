@@ -1,6 +1,8 @@
 export interface IPane {
     id: string;
 
+    glyph: "square" | "round";
+
     enter(): Promise<void>;
     exit(): Promise<void>;
 }

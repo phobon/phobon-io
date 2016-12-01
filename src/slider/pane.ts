@@ -4,18 +4,25 @@ export abstract class Pane implements IPane {
     private _id: string;
     private _parent: ISlider;
 
+    private _glyph: "square" | "round";
+
     private _activeBackground: JQuery;
     protected _backgroundClass: string;
 
     protected _site: JQuery;
     
-    constructor(id: string, parent: ISlider) {
+    constructor(id: string, glyph: "square" | "round", parent: ISlider) {
         this._id = id;
+        this._glyph = glyph;
         this._parent = parent;
     }
 
     get id(): string {
         return this._id;
+    }
+
+    get glyph(): "square" | "round" {
+        return this._glyph;
     }
 
     get parent(): ISlider {
