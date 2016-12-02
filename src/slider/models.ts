@@ -8,6 +8,7 @@ export interface IPane {
 }
 
 export interface ISlider {
+    glyph: JQuery;
     backgrounds: { top: JQuery; bottom: JQuery };      
     site: JQuery;
     navigation: JQuery;

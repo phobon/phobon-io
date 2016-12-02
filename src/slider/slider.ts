@@ -14,6 +14,7 @@ export abstract class Slider implements ISlider {
 
     protected _site: JQuery;    
     protected _navigation: JQuery;
+    protected _glyph: JQuery;
 
     constructor(host: JQuery) {
         this._host = host;
@@ -41,6 +42,10 @@ export abstract class Slider implements ISlider {
         return this._navigation;
     }
 
+    get glyph(): JQuery {
+        return this._glyph;
+    }
+
     get panes(): IPane[] {
         return this._panes;
     }
@@ -61,8 +66,12 @@ export abstract class Slider implements ISlider {
 
         this._isStateChanging = true;
 
+        var previous = this._currentPane;
+        var next = value;
+
         var setPane = () => {
             this._currentPane = value;
+
             this._currentPane.enter().then(() => {
                 this._isStateChanging = false;
             });
@@ -74,17 +83,23 @@ export abstract class Slider implements ISlider {
                 return;
             }
 
-            this._currentPane.exit().then(() => {
-                setPane();                
+            Promise.all([this.updateNavigation({ previous: previous, current: value }), this._currentPane.exit()]).then(() => {
+                setPane(); 
             });
         } else {
-            setPane();
+            this.updateNavigation({ previous: previous, current: value }).then(() => {
+                setPane();
+            });
         }        
     }
 
+    protected abstract initGlyph();
+
     protected abstract initPanes();
 
-    protected abstract initNavigation();
+    protected abstract initNavigation();    
+
+    protected abstract updateNavigation(args: { previous?: IPane; current: IPane }): Promise<void>;
 
     private init() {
         // Ensure the host is set up to handle content and navigation sites.
@@ -99,5 +114,29 @@ export abstract class Slider implements ISlider {
         this._panes = [];
         this.initPanes();
         this.initNavigation();
+        this.initGlyph();
+
+        // Initialize scroll-wheel handling. Yes, this scrolljacks, but sometimes you just want to see the world burn.
+        window.addEventListener("wheel", e => {
+            e.preventDefault();
+            if (this._isStateChanging) {
+                return;
+            }
+
+            // Determine the index of the current pane so we know which one to switch to.
+            let i = this.panes.indexOf(this.currentPane);
+
+            if (e.deltaY > 0 && i < this.panes.length) {
+                // Scrolled down.
+                i++;
+            } else if (i > 0) {
+                i--;
+            } else {
+                throw "Index out of range, this should never happen."
+            }
+
+            // Set the new current pane.
+            this.currentPane = this.panes[i];
+        });
     }
 }

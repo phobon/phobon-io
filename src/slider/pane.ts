@@ -39,11 +39,9 @@ export abstract class Pane implements IPane {
             // Append to the site to the parent so we can actually start to see it.
             this._site.appendTo(this.parent.site);
 
-            this.backgroundActions(this.parent.backgrounds).then(() => {
-                this.enterActions().then(() => {
-                    resolve();
-                });
-            });
+            Promise.all([this.backgroundActions(this.parent.backgrounds), this.enterActions()]).then(() => {
+                resolve();
+            });            
         });        
 
         return p;
@@ -63,6 +61,8 @@ export abstract class Pane implements IPane {
 
     private backgroundActions(targets: { top: JQuery; bottom: JQuery }): Promise<void> {
         let p: Promise<void> = new Promise<void>((resolve, reject) => {
+            targets.bottom.velocity("stop");
+
             // Swap the top and bottom backgrounds.
             targets.top.css("z-index", 0);
             targets.bottom.css("z-index", 1);            
