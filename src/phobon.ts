@@ -14,9 +14,10 @@ class Phobon extends Slider {
     }
 
     protected initNavigation() {
-        this._navigation = $("<ul class='absolute f-none f-d-column' style='right:2rem;top:2rem'/>").appendTo(this.site);
+        var navigationContainer = $("<div class='absolute h-100 f-none f-d-column w-huge f-j-center' style='right:2rem'/>").appendTo(this.site);
+        this._navigation = $("<ul class=' f-none f-d-column f-ai-end w-100'/>").appendTo(navigationContainer);
         this.panes.forEach((p, i, a) => {
-            let n = $(`<li data-index='${i}'>${p.id}</li>`).appendTo(this._navigation);            
+            let n = $(`<li class='nav-item ${p.glyph}' data-index='${i}'></li>`).appendTo(this._navigation);            
             n.on("click", () => {
                 let index = n.data("index");
                 this.currentPane = this.panes[index];
@@ -35,17 +36,17 @@ class Phobon extends Slider {
         // Remove selection from the old navigation item.
         var i = this.panes.indexOf(args.previous);
         if (i > -1) {
-            this._navigation.find(`[data-index='${i}']`).removeClass("c-white");
+            this._navigation.find(`[data-index='${i}']`).removeClass("active");
         }
 
         // Add selection from the new navigation item.
         var n = this.panes.indexOf(args.current);
         if (n > -1) {
-            this._navigation.find(`[data-index='${n}']`).addClass("c-white");
+            this._navigation.find(`[data-index='${n}']`).addClass("active");
         }
 
         return Promise.resolve();
-    }
+    }    
 }
 
 $(() => {

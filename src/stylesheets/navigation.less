@@ -1,0 +1,31 @@
+.nav-item {
+    .cur-pointer;    
+    .w-small;
+    .h-small;
+    transition: width 0.2s ease-out;
+
+    &:after {
+        height: 1px;
+        .c-black-tt-bg;
+        top:50%;
+        left:0;
+        right:0;
+        content: "";
+        .f-none;
+        transition: background-color 0.15s ease-out;
+        .relative;
+    }
+
+    &.active {        
+        .pe-none;
+        .w-huge;
+
+        &::after {
+            .c-white-bg;
+        }
+    }
+
+    &:hover {
+        .w-huge;
+    }
+}

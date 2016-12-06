@@ -15,13 +15,16 @@
 .border-ra-proc(@label, @size) {
     .br-ra-@{label} {
         border-radius: @size;
-    }
+    }
+
     .br-ra-tl-@{label} {
         border-top-left-radius: @size;
-    }
+    }
+
     .br-ra-tr-@{label} {
         border-top-right-radius: @size;
-    }
+    }
+
     .br-ra-bl-@{label} {
         border-bottom-left-radius: @size;
     }
@@ -81,4 +84,8 @@
 }
 .br-dashed {
     border-style: dashed;
+}
+
+.br-ra-100 {
+    border-radius: 100%;
 }

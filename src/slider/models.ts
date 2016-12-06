@@ -3,6 +3,8 @@ export interface IPane {
 
     glyph: "square" | "round";
 
+    loadingPromise: Promise<void>;
+
     enter(): Promise<void>;
     exit(): Promise<void>;
 }

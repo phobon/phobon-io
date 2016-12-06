@@ -101,6 +101,16 @@ export abstract class Slider implements ISlider {
 
     protected abstract updateNavigation(args: { previous?: IPane; current: IPane }): Promise<void>;
 
+    protected async loadAssets(): Promise<void> {
+        var promises: Promise<void>[] = [];
+        this.panes.forEach(p => {
+            promises.push(p.loadingPromise);
+        });
+
+        return Promise.resolve();
+        //return Promise.all(promises);
+    }
+
     private init() {
         // Ensure the host is set up to handle content and navigation sites.
         this._host.addClass("f w-100 h-100");         

@@ -16,5 +16,8 @@ export class Contact extends Pane {
 
     protected exitActions(): Promise<void> {
         return Promise.resolve();  
-    }
+    }   
+
+    protected assetLoader() {
+    } 
 }

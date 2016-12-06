@@ -10,11 +10,15 @@ export abstract class Pane implements IPane {
     protected _backgroundClass: string;
 
     protected _site: JQuery;
+
+    private _loadingPromise: Promise<void>;
     
     constructor(id: string, glyph: "square" | "round", parent: ISlider) {
         this._id = id;
         this._glyph = glyph;
         this._parent = parent;
+
+        this.assetLoader();
     }
 
     get id(): string {
@@ -28,6 +32,10 @@ export abstract class Pane implements IPane {
     get parent(): ISlider {
         return this._parent;
     }    
+
+    get loadingPromise(): Promise<void> {
+        return this._loadingPromise;
+    }
 
     enter(): Promise<void> {
         var p: Promise<void> = new Promise((resolve, reject) => { 
@@ -52,12 +60,14 @@ export abstract class Pane implements IPane {
             // Remove the site at this point because we don't need it until later.
             this._site.detach();
         });
-    }
+    }    
 
     protected abstract layout();
 
     protected abstract enterActions(): Promise<void>;
-    protected abstract exitActions(): Promise<void>;
+    protected abstract exitActions(): Promise<void>;    
+
+    protected abstract assetLoader();
 
     private backgroundActions(targets: { top: JQuery; bottom: JQuery }): Promise<void> {
         let p: Promise<void> = new Promise<void>((resolve, reject) => {
