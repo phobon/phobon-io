@@ -102,13 +102,13 @@ export abstract class Slider implements ISlider {
     protected abstract updateNavigation(args: { previous?: IPane; current: IPane }): Promise<void>;
 
     protected async loadAssets(): Promise<void> {
-        var promises: Promise<void>[] = [];
-        this.panes.forEach(p => {
-            promises.push(p.loadingPromise);
-        });
+        // Doing some chain-loading here because Promise.all() is being a bit flaky.
+        var p = this.panes[0].loadAssets();
+        for (var i = 1; i < this.panes.length; i++) {
+            p.then(this.panes[i].loadAssets);
+        }
 
-        return Promise.resolve();
-        //return Promise.all(promises);
+        return p;
     }
 
     private init() {

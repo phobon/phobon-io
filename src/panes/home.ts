@@ -11,6 +11,10 @@ export class Home extends Pane {
         this._backgroundClass = "gr-home";
     }
 
+    loadAssets(): Promise<void> {        
+        return Promise.resolve();    
+    }
+
     protected layout() {
         this._site = $("<div class='f h-100 f-d-column f-j-center f-ai-center c-white'/>");
         this._header = $("<h3 class='f-none w-80 o-0 f-d-row f-w'>Hi, I'm Ben, a software developer based in Perth, Western Australia. I specialise in making user interfaces; focusing on building awesome, performant front-end experiences.</h3>").appendTo(this._site);
@@ -18,7 +22,7 @@ export class Home extends Pane {
     }
 
     protected enterActions(): Promise<void> {
-        var p: Promise<void> = new Promise((resolve, reject) => { 
+        var p: Promise<any> = new Promise((resolve, reject) => { 
             this._header.velocity("stop");
             this._blurb.velocity("stop");
 
@@ -55,7 +59,7 @@ export class Home extends Pane {
     }
 
     protected exitActions(): Promise<void> {
-        var p: Promise<void> = new Promise((resolve, reject) => {
+        var p: Promise<any> = new Promise((resolve, reject) => {
             this._header.velocity("stop");
             this._blurb.velocity("stop");
 
@@ -87,8 +91,5 @@ export class Home extends Pane {
         });        
 
         return p;      
-    }
-
-    protected assetLoader() {
     }
 }

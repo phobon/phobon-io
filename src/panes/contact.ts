@@ -10,6 +10,10 @@ export class Contact extends Pane {
         this._site = $("<div><h2>contact</h2></div>");
     }
 
+    loadAssets(): Promise<void> {    
+        return Promise.resolve();    
+    }
+
     protected enterActions(): Promise<void> {
         return Promise.resolve();       
     }
@@ -17,7 +21,4 @@ export class Contact extends Pane {
     protected exitActions(): Promise<void> {
         return Promise.resolve();  
     }   
-
-    protected assetLoader() {
-    } 
 }

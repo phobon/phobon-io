@@ -11,6 +11,10 @@ export class Hundred extends Pane {
         this._backgroundClass = "gr-100";
     }    
 
+    loadAssets(): Promise<void> {        
+        return Promise.resolve();    
+    }
+
     protected layout() {
         this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center p-huge c-white f-d-row'/>");
         this._container = $("<div class='f-none w-40 h-100 f-j-start f-ai-start f-d-column'/>").appendTo(this._site);
@@ -21,7 +25,7 @@ export class Hundred extends Pane {
     }
 
     protected enterActions(): Promise<void> {
-        var p: Promise<void> = new Promise((resolve, reject) => { 
+        var p: Promise<any> = new Promise((resolve, reject) => { 
             this._header.velocity("stop");
             this._details.velocity("stop");
             this._image.velocity("stop");
@@ -66,7 +70,7 @@ export class Hundred extends Pane {
     }
 
     protected exitActions(): Promise<void> {
-        var p: Promise<void> = new Promise((resolve, reject) => { 
+        var p: Promise<any> = new Promise((resolve, reject) => { 
             this._header.velocity("stop");
             this._details.velocity("stop");
 
@@ -108,8 +112,5 @@ export class Hundred extends Pane {
          });        
 
         return p; 
-    }
-
-    protected assetLoader() {
-    }
+    }    
 }
