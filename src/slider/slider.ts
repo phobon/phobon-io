@@ -148,5 +148,10 @@ export abstract class Slider implements ISlider {
             // Set the new current pane.
             this.currentPane = this.panes[i];
         });
+
+        // Load assets and then set the active pane.
+        this.loadAssets().then(() => {
+            this.currentPane = this.panes[0];
+        });
     }
 }

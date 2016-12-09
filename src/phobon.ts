@@ -23,9 +23,6 @@ class Phobon extends Slider {
                 this.currentPane = this.panes[index];
             });
         });
-
-        // Finally, set the current pane. Should just be the first one in the array.
-        this.currentPane = this.panes[0];
     }
 
     protected initGlyph() {
