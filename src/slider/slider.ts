@@ -93,7 +93,7 @@ export abstract class Slider implements ISlider {
         }        
     }
 
-    protected abstract initGlyph();
+    protected abstract layout();
 
     protected abstract initPanes();
 
@@ -101,14 +101,13 @@ export abstract class Slider implements ISlider {
 
     protected abstract updateNavigation(args: { previous?: IPane; current: IPane }): Promise<void>;
 
-    protected async loadAssets(): Promise<void> {
-        // Doing some chain-loading here because Promise.all() is being a bit flaky.
-        var p = this.panes[0].loadAssets();
-        for (var i = 1; i < this.panes.length; i++) {
-            p.then(this.panes[i].loadAssets);
+    private async loadAssets(): Promise<void> {
+        // Use some snazzy async/await stuff here.
+        for (var i = 0; i < this.panes.length; i++) {
+            await this.panes[i].loadAssets();
         }
 
-        return p;
+        return Promise.resolve();
     }
 
     private init() {
@@ -122,9 +121,7 @@ export abstract class Slider implements ISlider {
 
         // Initialize specific abstract items.
         this._panes = [];
-        this.initPanes();
-        this.initNavigation();
-        this.initGlyph();
+        this.initPanes();        
 
         // Initialize scroll-wheel handling. Yes, this scrolljacks, but sometimes you just want to see the world burn.
         window.addEventListener("wheel", e => {
@@ -149,8 +146,12 @@ export abstract class Slider implements ISlider {
             this.currentPane = this.panes[i];
         });
 
+        // Render the empty state so we can load all of these assets.
+        this.layout();
+
         // Load assets and then set the active pane.
         this.loadAssets().then(() => {
+            this.initNavigation();
             this.currentPane = this.panes[0];
         });
     }

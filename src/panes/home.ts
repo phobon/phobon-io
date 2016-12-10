@@ -11,8 +11,15 @@ export class Home extends Pane {
         this._backgroundClass = "gr-home";
     }
 
-    loadAssets(): Promise<void> {        
-        return Promise.resolve();    
+    loadAssets(): Promise<void> {    
+        var p: Promise<void> = new Promise<void>((resolve, reject) => {
+            setTimeout(() => {
+                console.log("home loaded");
+                resolve();
+            }, 7000);
+        });
+
+        return p;
     }
 
     protected layout() {

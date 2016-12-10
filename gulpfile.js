@@ -1,3 +1,5 @@
+require("babel-polyfill");
+
 var gulp = require('gulp');
 var clean = require('gulp-clean');
 
@@ -66,7 +68,7 @@ gulp.task('dev', ['clean', 'tsc', 'less'], function() {
         .pipe(gulp.dest('./'));        
     
     // Match files based on a pattern and pipe into our bundled stream.
-    globby(['./public/scripts/*.js', './public/scripts/**/*.js']).then(function(entries) {
+    globby(['./public/scripts/*.js', './public/scripts/**/*.js', '!./public/scripts/deps/*.js']).then(function(entries) {
         var b = browserify({ entries: entries }); 
         b.bundle().pipe(bundledStream);
     }).catch(function(err) {
@@ -91,7 +93,7 @@ gulp.task('release', ['clean', 'tsc', 'less'], function() {
         .pipe(gulp.dest('./'));        
     
     // Match files based on a pattern and pipe into our bundled stream.
-    globby(['./public/scripts/*.js', './public/scripts/**/*.js']).then(function(entries) {
+    globby(['./public/scripts/*.js', './public/scripts/**/*.js', '!./public/scripts/deps/*.js']).then(function(entries) {
         var b = browserify({ entries: entries }); 
         b.bundle().pipe(bundledStream);
     }).catch(function(err) {

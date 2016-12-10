@@ -15,18 +15,16 @@ class Phobon extends Slider {
 
     protected initNavigation() {
         var navigationContainer = $("<div class='absolute h-100 f-none f-d-column w-huge f-j-center' style='right:2rem'/>").appendTo(this.site);
-        this._navigation = $("<ul class=' f-none f-d-column f-ai-end w-100'/>").appendTo(navigationContainer);
+        this._navigation = $("<ul class='f-none f-d-column f-ai-end w-100'/>").appendTo(navigationContainer);
         this.panes.forEach((p, i, a) => {
-            let n = $(`<li class='nav-item ${p.glyph}' data-index='${i}'></li>`).appendTo(this._navigation);            
+            let n = $(`<li class='nav-item ${p.glyph}' data-index='${i}' class='o-0'></li>`).appendTo(this._navigation);            
             n.on("click", () => {
                 let index = n.data("index");
                 this.currentPane = this.panes[index];
             });
         });
-    }
 
-    protected initGlyph() {
-        this._glyph = $(`<div class='f-none absolute c-white-f c-white-tt-bg br-ra-huge p-small' style='left:3rem;top:3rem'>${Phobon._phobonGlyph}</div>`).appendTo(this.site);
+        // TODO: Some entering transition would be nice here.
     }
 
     protected updateNavigation(args: { previous?: IPane; current: IPane }): Promise<void> {
@@ -44,6 +42,10 @@ class Phobon extends Slider {
 
         return Promise.resolve();
     }    
+
+    protected layout() {
+        this._glyph = $(`<div class='f-none absolute c-white-f c-white-tt-bg br-ra-huge p-small' style='left:3rem;top:3rem'>${Phobon._phobonGlyph}</div>`).appendTo(this.site);
+    }
 }
 
 $(() => {

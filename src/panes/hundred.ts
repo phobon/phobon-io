@@ -4,15 +4,28 @@ export class Hundred extends Pane {
     private _container: JQuery;
     private _header: JQuery;
     private _details: JQuery;
-    private _image: JQuery;
+
+    private _image: HTMLImageElement;
+    private _imageSite: JQuery;
 
     constructor(parent: ISlider) {
         super("hundred", "round", parent);
         this._backgroundClass = "gr-100";
     }    
 
-    loadAssets(): Promise<void> {        
-        return Promise.resolve();    
+    loadAssets(): Promise<void> {    
+        var p: Promise<void> = new Promise<void>((resolve, reject) => {      
+            this._image = new Image();
+            this._image.className = "f-none w-100";           
+
+            this._image.onload = () => { 
+                console.log("hundred loaded");
+                resolve();
+            };
+            this._image.src = "images/100.png";
+        });
+
+        return p;
     }
 
     protected layout() {
@@ -21,14 +34,15 @@ export class Hundred extends Pane {
         this._header = $("<h3 class='f-none c-white o-0'>hundred days of ui.</h3>").appendTo(this._container);
         this._details = $("<h3 class='f-none m-t-large o-0'>A design challenge with a new brief every day for 100 days.</h3>").appendTo(this._container);
 
-        this._image = $("<div class='f f-j-center f-ai-center o-0'><img class='f-none w-100' src='images/100.png'/></div>").appendTo(this._site);
+        this._imageSite = $("<div class='f f-j-center f-ai-center o-0'/>").appendTo(this._site);
+        this._imageSite.append(this._image);
     }
 
     protected enterActions(): Promise<void> {
         var p: Promise<any> = new Promise((resolve, reject) => { 
             this._header.velocity("stop");
             this._details.velocity("stop");
-            this._image.velocity("stop");
+            this._imageSite.velocity("stop");
 
             var s = [
                 { 
@@ -51,7 +65,7 @@ export class Hundred extends Pane {
                     }
                 },
                 {
-                    e: this._image,
+                    e: this._imageSite,
                     p: { opacity: [1, 0], scaleX: [1, 0.8], scaleY: [1, 0.8] },
                     o: {
                         duration: 500,

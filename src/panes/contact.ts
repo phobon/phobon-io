@@ -11,7 +11,14 @@ export class Contact extends Pane {
     }
 
     loadAssets(): Promise<void> {    
-        return Promise.resolve();    
+        var p: Promise<void> = new Promise<void>((resolve, reject) => {
+            setTimeout(() => {
+                console.log("contact loaded");
+                resolve();
+            }, 5000);
+        });
+
+        return p;
     }
 
     protected enterActions(): Promise<void> {
