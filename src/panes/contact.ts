@@ -1,4 +1,5 @@
 import { Pane, ISlider } from "./../slider/main";
+import { delay } from "./../utils";
 
 export class Contact extends Pane {
     constructor(parent: ISlider) {
@@ -12,10 +13,10 @@ export class Contact extends Pane {
 
     loadAssets(): Promise<void> {    
         var p: Promise<void> = new Promise<void>((resolve, reject) => {
-            setTimeout(() => {
-                console.log("contact loaded");
+            console.log("contact loaded");
+            delay(8000).then(() => {
                 resolve();
-            }, 5000);
+            });
         });
 
         return p;

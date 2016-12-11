@@ -30,7 +30,7 @@ export class Hundred extends Pane {
 
     protected layout() {
         this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center p-huge c-white f-d-row'/>");
-        this._container = $("<div class='f-none w-40 h-100 f-j-start f-ai-start f-d-column'/>").appendTo(this._site);
+        this._container = $("<div class='f-none w-40 h-100 f-j-start f-ai-start f-d-column br-nano c-white-br'/>").appendTo(this._site);
         this._header = $("<h3 class='f-none c-white o-0'>hundred days of ui.</h3>").appendTo(this._container);
         this._details = $("<h3 class='f-none m-t-large o-0'>A design challenge with a new brief every day for 100 days.</h3>").appendTo(this._container);
 

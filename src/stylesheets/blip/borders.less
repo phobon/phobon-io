@@ -1,0 +1,91 @@
+﻿/*
+    Modular css to handle various border styles.
+    border-radius styles correspond in size to things found in sizing.less (ie: for a perfectly round element, pick the same border radius as its size)
+*/
+
+@br-s-none:               0;
+@br-s-nano:               0.125rem;
+@br-s-tiny:               0.25rem;
+@br-s-small:              0.5rem;
+@br-s-medium:             1rem;
+@br-s-large:              1.5rem;
+@br-s-huge:               2rem;
+@br-s-massive:            3rem;
+
+.border-ra-proc(@label, @size) {
+    .br-ra-@{label} {
+        border-radius: @size;
+    }
+
+    .br-ra-tl-@{label} {
+        border-top-left-radius: @size;
+    }
+
+    .br-ra-tr-@{label} {
+        border-top-right-radius: @size;
+    }
+
+    .br-ra-bl-@{label} {
+        border-bottom-left-radius: @size;
+    }
+
+    .br-ra-br-@{label} {
+        border-bottom-right-radius: @size;
+    }
+}
+
+.border-ra-proc(none, @br-s-none);
+.border-ra-proc(nano, @br-s-nano);
+.border-ra-proc(tiny, @br-s-tiny);
+.border-ra-proc(small, @br-s-small);
+.border-ra-proc(medium, @br-s-medium);
+.border-ra-proc(large, @br-s-large);
+.border-ra-proc(huge, @br-s-huge);
+.border-ra-proc(massive, @br-s-massive);
+
+.border-proc(@label, @size) {
+    .br-@{label} {
+        border: solid;
+        border-width: @size;
+    }
+    .br-t-@{label} {
+        border-top: @size solid;
+    }
+    .br-b-@{label} {
+        border-bottom: @size solid;
+    }
+    .br-l-@{label} {
+        border-left: @size solid;
+    }
+    .br-r-@{label} {
+        border-right: @size solid;
+    }
+    .br-horizontal-@{label} {
+        border-left: @size solid;
+        border-right: @size solid;
+    }
+    .br-vertical-@{label} {
+        border-left: @size solid;
+        border-right: @size solid;
+    }
+}
+
+/*
+    We really only want a couple of border sizes, otherwise it gets a little bit
+    ridiculous. Even a couple is too many I guess.
+*/
+.border-proc(none, @br-s-none);
+.border-proc(nano, @br-s-nano);
+.border-proc(tiny, @br-s-tiny);
+.border-proc(small, @br-s-small);
+
+.br-solid {
+    border-style: solid;
+}
+.br-dashed {
+    border-style: dashed;
+}
+
+.br-ra-100 {
+    border-radius: 100%;
+}

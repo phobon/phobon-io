@@ -93,7 +93,8 @@ export abstract class Slider implements ISlider {
         }        
     }
 
-    protected abstract layout();
+    protected abstract loadingStart(): Promise<void>;
+    protected abstract loadingEnd(): Promise<void>;
 
     protected abstract initPanes();
 
@@ -117,7 +118,7 @@ export abstract class Slider implements ISlider {
         // Build the sites as necessary.
         this._backgrounds["1"] = $("<div class='fixed w-100 h-100 pe-none' style='left:0;top:0;z-index:1'/>").appendTo(this._host);
         this._backgrounds["2"] = $("<div class='fixed w-100 h-100 pe-none d-none' style='left:0;top:0;opacity:0;z-index:0'/>").appendTo(this._host);
-        this._site = $("<div class='fixed w-100 h-100' style='left:0;top:0;z-index:2'/>").appendTo(this._host);
+        this._site = $("<div class='fixed w-100 h-100 f-none f-j-center f-ai-center' style='left:0;top:0;z-index:2'/>").appendTo(this._host);
 
         // Initialize specific abstract items.
         this._panes = [];
@@ -146,11 +147,24 @@ export abstract class Slider implements ISlider {
             this.currentPane = this.panes[i];
         });
 
-        // Render the empty state so we can load all of these assets.
-        this.layout();
+        // // Render the empty state so we can load all of these assets.
+        // this.loadingStart();
 
-        // Load assets and then set the active pane.
-        this.loadAssets().then(() => {
+        // // Load assets and then set the active pane.
+        // this.loadAssets().then(() => {
+        //     this.loadingEnd().then(() => {
+        //         this.initNavigation();
+        //         this.currentPane = this.panes[0];
+        //     });            
+        // });
+
+        this.loading();
+    }
+
+    private async loading(): Promise<void> {
+        await this.loadingStart();
+        await this.loadAssets();
+        await this.loadingEnd().then(() => {
             this.initNavigation();
             this.currentPane = this.panes[0];
         });

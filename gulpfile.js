@@ -3,6 +3,8 @@ require("babel-polyfill");
 var gulp = require('gulp');
 var clean = require('gulp-clean');
 
+var copy = require('gulp-copy');
+
 // Typescript transpiling
 var tsc = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
@@ -55,7 +57,12 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
-gulp.task('dev', ['clean', 'tsc', 'less'], function() {
+gulp.task('polyfill', function() {
+    gulp.src(['./node_modules/babel-polyfill/dist/polyfill.min.js'])
+        .pipe(gulp.dest('./public/scripts/deps/'));
+});
+
+gulp.task('dev', ['clean', 'polyfill', 'tsc', 'less'], function() {
     var bundledStream = through();
     
     // Set up our bundled stream with the output that we want to achieve.
