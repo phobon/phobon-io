@@ -3,6 +3,7 @@ import { Pane, ISlider } from "./../slider/main";
 export class Hundred extends Pane {
     private _container: JQuery;
     private _header: JQuery;
+    private _divider: JQuery;
     private _details: JQuery;
 
     private _image: HTMLImageElement;
@@ -30,9 +31,13 @@ export class Hundred extends Pane {
 
     protected layout() {
         this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center p-huge c-white f-d-row'/>");
-        this._container = $("<div class='f-none w-40 h-100 f-j-start f-ai-start f-d-column br-nano c-white-br'/>").appendTo(this._site);
-        this._header = $("<h3 class='f-none c-white o-0'>hundred days of ui.</h3>").appendTo(this._container);
-        this._details = $("<h3 class='f-none m-t-large o-0'>A design challenge with a new brief every day for 100 days.</h3>").appendTo(this._container);
+        this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge'/>").appendTo(this._site);
+        this._header = $("<h3 class='f-none c-white o-0'>hundred days of ui</h3>").appendTo(this._container);
+
+        this._divider = $("<div class='m-t-large to-left br-b-nano c-white-br' style='width:180px'/>").appendTo(this._container);
+        this._divider.velocity({ scaleX: 0 }, { duration: 0 });
+
+        this._details = $("<h4 class='f-none m-t-huge o-0'>A design challenge with a new brief every day for 100 days.</h4>").appendTo(this._container);
 
         this._imageSite = $("<div class='f f-j-center f-ai-center o-0'/>").appendTo(this._site);
         this._imageSite.append(this._image);
@@ -46,17 +51,25 @@ export class Hundred extends Pane {
 
             var s = [
                 { 
-                    e: this._header,
-                    p: { opacity: [1, 0], translateY: [0, 200] },
+                    e: this._divider,
+                    p: { scaleX: 1 },
                     o: { 
-                        delay: 300,
                         duration: 1000,
                         easing: "easeOutExpo"
                     }
                 },
                 { 
+                    e: this._header,
+                    p: { opacity: [1, 0], translateY: [0, 100] },
+                    o: { 
+                        sequenceQueue: false,
+                        duration: 500,
+                        easing: "easeOutExpo"
+                    }
+                },
+                { 
                     e: this._details,
-                    p: { opacity: [0.5, 0], translateY: [0, 200] },
+                    p: { opacity: [0.5, 0], translateY: [0, 100] },
                     o: { 
                         duration: 500,
                         sequenceQueue: false,
@@ -94,6 +107,16 @@ export class Hundred extends Pane {
                     p: { opacity: 0, scaleX: 0.8, scaleY: 0.8 },
                     o: {
                         duration: 400,     
+                        easing: "easeOutExpo"
+                    }
+                },
+                { 
+                    e: this._divider,
+                    p: { scaleX: 0 },
+                    o: { 
+                        delay: 300,
+                        duration: 800,
+                        sequenceQueue: false,
                         easing: "easeOutExpo"
                     }
                 },
