@@ -79,7 +79,7 @@ class Phobon extends Slider {
                 },
                 {
                     e: this._loadingContent,
-                    p: { opacity: 1, scaleX: 1, scaleY: 1 },
+                    p: { opacity: 0.8, scaleX: 1, scaleY: 1 },
                     o: { 
                         duration: 500, 
                         easing: "easeOutExpo", 

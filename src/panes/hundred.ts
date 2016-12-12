@@ -32,12 +32,12 @@ export class Hundred extends Pane {
     protected layout() {
         this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center p-huge c-white f-d-row'/>");
         this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge'/>").appendTo(this._site);
-        this._header = $("<h3 class='f-none c-white o-0'>hundred days of ui</h3>").appendTo(this._container);
+        this._header = $("<h3 class='f-none c-white o-0'>C.</h3>").appendTo(this._container);
 
-        this._divider = $("<div class='m-t-large to-left br-b-nano c-white-br' style='width:180px'/>").appendTo(this._container);
+        this._divider = $("<div class='m-t-medium to-left br-b-tiny c-white-br o-50' style='width:180px'/>").appendTo(this._container);
         this._divider.velocity({ scaleX: 0 }, { duration: 0 });
 
-        this._details = $("<h4 class='f-none m-t-huge o-0'>A design challenge with a new brief every day for 100 days.</h4>").appendTo(this._container);
+        this._details = $("<h4 class='f-none m-t-huge o-0'>100 days of experimentation in user interface and experience design inspired by dailyui.</h4>").appendTo(this._container);
 
         this._imageSite = $("<div class='f f-j-center f-ai-center o-0'/>").appendTo(this._site);
         this._imageSite.append(this._image);
@@ -69,7 +69,7 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._details,
-                    p: { opacity: [0.5, 0], translateY: [0, 100] },
+                    p: { opacity: [1, 0], translateY: [0, 100] },
                     o: { 
                         duration: 500,
                         sequenceQueue: false,
@@ -103,7 +103,7 @@ export class Hundred extends Pane {
 
             var s = [
                 {
-                    e: this._image,
+                    e: this._imageSite,
                     p: { opacity: 0, scaleX: 0.8, scaleY: 0.8 },
                     o: {
                         duration: 400,     
@@ -122,7 +122,7 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._details,
-                    p: { opacity: 0, translateY: [200, 0] },
+                    p: { opacity: 0, translateY: [100, 0] },
                     o: { 
                         duration: 400,
                         sequenceQueue: false,
@@ -132,7 +132,7 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._header,
-                    p: { opacity: 0, translateY: [200, 0] },
+                    p: { opacity: 0, translateY: [100, 0] },
                     o: { 
                         duration: 400,
                         sequenceQueue: false,
