@@ -22,7 +22,7 @@ export class Contact extends Pane {
 
     loadAssets(): Promise<void> {    
         var p: Promise<void> = new Promise<void>((resolve, reject) => {            
-            delay(8000).then(() => {
+            delay(1000).then(() => {
                 console.log("contact loaded");
                 resolve();
             });
