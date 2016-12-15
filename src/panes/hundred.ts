@@ -34,7 +34,9 @@ export class Hundred extends Pane {
     protected layout() {
         this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center p-huge c-white f-d-row'/>");
         this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge'/>").appendTo(this._site);
-        this._header = $("<h3 class='f-none c-white o-0'>C.</h3>").appendTo(this._container);
+        
+        var headerSite = $("<div class='f-none of-hidden'/>").appendTo(this._container);
+        this._header = $("<h3 class='f-none c-white o-0'>C.</h3>").appendTo(headerSite);
 
         this._divider = $("<div class='m-t-medium to-left br-b-tiny c-white-br o-50' style='width:180px'/>").appendTo(this._container);
         this._divider.velocity({ scaleX: 0 }, { duration: 0 });
@@ -65,7 +67,7 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._header,
-                    p: { opacity: [1, 0], translateY: [0, 100] },
+                    p: { opacity: [1, 0], translateY: [0, 30] },
                     o: { 
                         sequenceQueue: false,
                         duration: 500,
@@ -137,9 +139,9 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._details,
-                    p: { opacity: 0, translateY: [100, 0] },
+                    p: { opacity: 0, translateY: [30, 0] },
                     o: { 
-                        duration: 400,
+                        duration: 600,
                         sequenceQueue: false,
                         delay: 100,
                         easing: "easeOutExpo"
@@ -147,7 +149,7 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._header,
-                    p: { opacity: 0, translateY: [100, 0] },
+                    p: { opacity: 0, translateY: [30, 0] },
                     o: { 
                         duration: 400,
                         sequenceQueue: false,
