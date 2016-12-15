@@ -16,6 +16,7 @@ class Phobon extends Slider {
         this.panes.push(
             new Panes.Home(this),
             new Panes.Hundred(this), 
+            new Panes.TheStudio(this),
             new Panes.Contact(this));        
     }
 

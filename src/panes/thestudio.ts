@@ -1,6 +1,6 @@
 import { Pane, ISlider } from "./../slider/main";
 
-export class Hundred extends Pane {
+export class TheStudio extends Pane {
     private _container: JQuery;
     private _header: JQuery;
     private _divider: JQuery;
@@ -12,8 +12,8 @@ export class Hundred extends Pane {
     private _imageSite: JQuery;
 
     constructor(parent: ISlider) {
-        super("hundred", "round", parent);
-        this._backgroundClass = "gr-100";
+        super("thestudio", "round", parent);
+        this._backgroundClass = "gr-loading2";
     }    
 
     loadAssets(): Promise<void> {    
@@ -33,6 +33,9 @@ export class Hundred extends Pane {
 
     protected layout() {
         this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center p-huge c-white f-d-row'/>");
+        this._imageSite = $("<div class='f f-j-center f-ai-center o-0'/>").appendTo(this._site);
+        this._imageSite.append(this._image);
+
         this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge'/>").appendTo(this._site);
         this._header = $("<h3 class='f-none c-white o-0'>C.</h3>").appendTo(this._container);
 
@@ -41,10 +44,7 @@ export class Hundred extends Pane {
 
         this._details = $("<h4 class='f-none m-t-huge o-0'>100 days of experimentation in user interface and experience design inspired by dailyui.<br/><br/>I started this at the end of 2015 and somehow managed to slog my way through to the end.</h4>").appendTo(this._container);
 
-        this._link = $("<h4 class='f-none m-t-huge o-0'><a href='http://phobon.io/100' target='_blank'>check it out</a></h4>").appendTo(this._container);
-
-        this._imageSite = $("<div class='f f-j-center f-ai-center o-0'/>").appendTo(this._site);
-        this._imageSite.append(this._image);
+        this._link = $("<h4 class='f-none m-t-huge o-0'><a href='http://phobon.io/100' target='_blank'>check it out</a></h4>").appendTo(this._container);        
     }
 
     protected enterActions(): Promise<void> {
