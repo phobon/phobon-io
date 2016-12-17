@@ -22,7 +22,7 @@ export class TheStudio extends Pane {
             this._image.className = "f-none w-100";           
 
             this._image.onload = () => { 
-                console.log("hundred loaded");
+                console.log("thestudio loaded");
                 resolve();
             };
             this._image.src = "images/100.png";
@@ -37,14 +37,14 @@ export class TheStudio extends Pane {
         this._imageSite.append(this._image);
 
         this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge'/>").appendTo(this._site);
-        this._header = $("<h3 class='f-none c-white o-0'>C.</h3>").appendTo(this._container);
+        this._header = $("<h3 class='f-none c-white o-0'>The Studio<br/>Physiotherapy & Clinical Pilates.</h3>").appendTo(this._container);
 
         this._divider = $("<div class='m-t-medium to-left br-b-tiny c-white-br o-50' style='width:180px'/>").appendTo(this._container);
         this._divider.velocity({ scaleX: 0 }, { duration: 0 });
 
-        this._details = $("<h4 class='f-none m-t-huge o-0'>100 days of experimentation in user interface and experience design inspired by dailyui.<br/><br/>I started this at the end of 2015 and somehow managed to slog my way through to the end.</h4>").appendTo(this._container);
+        this._details = $("<h4 class='f-none m-t-huge o-0'>The Studio is a boutique pilates and physiotherapy clinic located in Perth, Western Australia.<br/><br/>The brand is built around the personality and philosophy of its owner - clean, bright and striking.</h4>").appendTo(this._container);
 
-        this._link = $("<h4 class='f-none m-t-huge o-0'><a href='http://phobon.io/100' target='_blank'>check it out</a></h4>").appendTo(this._container);        
+        this._link = $("<h4 class='f-none m-t-huge o-0'><a href='http://thestudiophysio.com' target='_blank'>check it out</a></h4>").appendTo(this._container);        
     }
 
     protected enterActions(): Promise<void> {

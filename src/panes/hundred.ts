@@ -8,35 +8,41 @@ export class Hundred extends Pane {
     private _details: JQuery;
     private _link: JQuery;
 
-    private _image: HTMLImageElement;
-    private _imageSite: JQuery;
+    private _images: { [ index: string ]: { site?: JQuery; image: HTMLImageElement } } = {};
 
     constructor(parent: ISlider) {
         super("hundred", "round", parent);
         this._backgroundClass = "gr-100";
     }    
 
-    loadAssets(): Promise<void> {    
-        var p: Promise<void> = new Promise<void>((resolve, reject) => {      
-            this._image = new Image();
-            this._image.className = "f-none w-100";           
+    async loadAssets(): Promise<void> {    
+        // Load images as necessary.
+        var background = new Image();
+        background.className = "f-none o-20";
+        this._images["background"] = {
+            image: background
+        }
 
-            this._image.onload = () => { 
-                console.log("hundred loaded");
-                resolve();
-            };
-            this._image.src = "images/100.png";
-        });
+        var foreground = new Image();
+        foreground.className = "f-none";
+        this._images["foreground"] = {
+            image: foreground
+        }
 
-        return p;
-    }
+        await this.loadImage(background, "images/second.png");
+        await this.loadImage(foreground, "images/first.png");
+
+        console.log("hundred loaded");
+
+        return Promise.resolve();
+    }    
 
     protected layout() {
         this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center p-huge c-white f-d-row'/>");
-        this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge'/>").appendTo(this._site);
+        this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge z1'/>").appendTo(this._site);
         
         var headerSite = $("<div class='f-none of-hidden'/>").appendTo(this._container);
-        this._header = $("<h3 class='f-none c-white o-0'>C.</h3>").appendTo(headerSite);
+        this._header = $("<h3 class='f-none c-white o-0'>C.</h3> ").appendTo(headerSite);
 
         this._divider = $("<div class='m-t-medium to-left br-b-tiny c-white-br o-50' style='width:180px'/>").appendTo(this._container);
         this._divider.velocity({ scaleX: 0 }, { duration: 0 });
@@ -45,15 +51,22 @@ export class Hundred extends Pane {
 
         this._link = $("<h4 class='f-none m-t-huge o-0'><a href='http://phobon.io/100' target='_blank'>check it out</a></h4>").appendTo(this._container);
 
-        this._imageSite = $("<div class='f f-j-center f-ai-center o-0'/>").appendTo(this._site);
-        this._imageSite.append(this._image);
+        this._site.append("<div class='f'/>");
+
+        // Set up background images.
+        this._images["background"].site = $("<div class='absolute f-none o-0' style='right:0;bottom:0;'/>").appendTo(this._site);
+        this._images["background"].site.append(this._images["background"].image);
+
+        this._images["foreground"].site = $("<div class='absolute f-none o-0' style='right:0;bottom:0;'/>").appendTo(this._site);
+        this._images["foreground"].site.append(this._images["foreground"].image);
     }
 
     protected enterActions(): Promise<void> {
         var p: Promise<any> = new Promise((resolve, reject) => { 
             this._header.velocity("stop");
             this._details.velocity("stop");
-            this._imageSite.velocity("stop");
+            this._images["foreground"].site.velocity("stop");
+            this._images["background"].site.velocity("stop");
             this._link.velocity("stop");
 
             var s = [
@@ -67,7 +80,7 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._header,
-                    p: { opacity: [1, 0], translateY: [0, 30] },
+                    p: { opacity: [1, 0], translateY: [0, 32] },
                     o: { 
                         sequenceQueue: false,
                         duration: 500,
@@ -76,7 +89,7 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._details,
-                    p: { opacity: [0.5, 0], translateY: [0, 100] },
+                    p: { opacity: [0.5, 0], translateY: [0, 32] },
                     o: { 
                         duration: 500,
                         sequenceQueue: false,
@@ -86,7 +99,7 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._link,
-                    p: { opacity: [0.7, 0], translateY: [0, 100] },
+                    p: { opacity: [0.7, 0], translateY: [0, 32] },
                     o: { 
                         duration: 500,
                         sequenceQueue: false,
@@ -95,14 +108,26 @@ export class Hundred extends Pane {
                     }
                 },
                 {
-                    e: this._imageSite,
-                    p: { opacity: [1, 0], scaleX: [1, 0.8], scaleY: [1, 0.8] },
+                    e: this._images["foreground"].site,
+                    p: { opacity: [1, 0], translateX: [0, 150], translateY: [0, 300] },
                     o: {
                         duration: 500,
                         easing: "easeOutExpo",
+                        sequenceQueue: false,
+                        delay: 200,
                         complete: () => {
                             resolve();
                         } 
+                    }
+                },
+                {
+                    e: this._images["background"].site,
+                    p: { opacity: [1, 0], translateX: [0, 16], translateY: [0, 16] },
+                    o: {
+                        duration: 1500,
+                        sequenceQueue: false,
+                        delay: 200,
+                        easing: "easeOutExpo"
                     }
                 }
             ];
@@ -117,13 +142,26 @@ export class Hundred extends Pane {
         var p: Promise<any> = new Promise((resolve, reject) => { 
             this._header.velocity("stop");
             this._details.velocity("stop");
+            this._images["foreground"].site.velocity("stop");
+            this._images["background"].site.velocity("stop");
+            this._link.velocity("stop");
 
             var s = [
                 {
-                    e: this._imageSite,
-                    p: { opacity: 0, scaleX: 0.8, scaleY: 0.8 },
+                    e: this._images["foreground"].site,
+                    p: { opacity: 0, translateX: [150, 0], translateY: [300, 0] },
                     o: {
                         duration: 400,     
+                        easing: "easeInExpo"
+                    }
+                },
+                {
+                    e: this._images["background"].site,
+                    p: { opacity: 0, translateX: [16, 0], translateY: [16, 0] },
+                    o: {
+                        duration: 500,    
+                        sequenceQueue: false,
+                        delay: 150,
                         easing: "easeOutExpo"
                     }
                 },
@@ -139,7 +177,7 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._details,
-                    p: { opacity: 0, translateY: [30, 0] },
+                    p: { opacity: 0, translateY: [32, 0] },
                     o: { 
                         duration: 600,
                         sequenceQueue: false,
@@ -149,17 +187,27 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._header,
-                    p: { opacity: 0, translateY: [30, 0] },
+                    p: { opacity: 0, translateY: [32, 0] },
                     o: { 
                         duration: 400,
                         sequenceQueue: false,
                         delay: 200,
+                        easing: "easeOutExpo"
+                    }
+                },
+                { 
+                    e: this._link,
+                    p: { opacity: 0, translateY: [32, 0] },
+                    o: { 
+                        duration: 500,
+                        sequenceQueue: false,
+                        delay: 300,
                         easing: "easeOutExpo",
                         complete: () => {
                             resolve();
                         } 
                     }
-                }
+                },
             ];
 
             $.Velocity.RunSequence(s);
