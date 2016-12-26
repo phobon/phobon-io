@@ -42,14 +42,14 @@ export class Hundred extends Pane {
         this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge z1'/>").appendTo(this._site);
         
         var headerSite = $("<div class='f-none of-hidden'/>").appendTo(this._container);
-        this._header = $("<h3 class='f-none c-white o-0'>C.</h3> ").appendTo(headerSite);
+        this._header = $("<h3 class='f-none c-white o-0'>hundred.</h3> ").appendTo(headerSite);
 
-        this._divider = $("<div class='m-t-medium to-left br-b-tiny c-white-br o-50' style='width:180px'/>").appendTo(this._container);
+        this._divider = $("<div class='m-t-small to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
         this._divider.velocity({ scaleX: 0 }, { duration: 0 });
 
-        this._details = $("<h4 class='f-none m-t-huge o-0'>100 days of experimentation in user interface and experience design inspired by dailyui.<br/><br/>I started this at the end of 2015 and somehow managed to slog my way through to the end.</h4>").appendTo(this._container);
+        this._details = $("<div class='f-none m-t-huge o-0 f4 lh-title'><span class='d-block'>100 days of experimentation in user interface and experience design inspired by <a class='d-inline-block o-70' href='http://www.dailyui.co/'>dailyui</a>.<br/><br/>I started it on December 15, 2015 and finished on <a class='d-inline-block o-70' href='https://twitter.com/thenoumenon/status/727319863266418688'>May 3, 2016</a>.</div>").appendTo(this._container);
 
-        this._link = $("<h4 class='f-none m-t-huge o-0'><a href='http://phobon.io/100' target='_blank'>check it out</a></h4>").appendTo(this._container);
+        this._link = $("<div class='f-none m-t-huge o-0 f4'><a class='o-70' href='http://phobon.io/100' target='_blank'>check it out</a></div>").appendTo(this._container);
 
         this._site.append("<div class='f'/>");
 
@@ -89,7 +89,7 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._details,
-                    p: { opacity: [0.5, 0], translateY: [0, 32] },
+                    p: { opacity: [1, 0], translateY: [0, 32] },
                     o: { 
                         duration: 500,
                         sequenceQueue: false,
@@ -99,7 +99,7 @@ export class Hundred extends Pane {
                 },
                 { 
                     e: this._link,
-                    p: { opacity: [0.7, 0], translateY: [0, 32] },
+                    p: { opacity: [1, 0], translateY: [0, 32] },
                     o: { 
                         duration: 500,
                         sequenceQueue: false,

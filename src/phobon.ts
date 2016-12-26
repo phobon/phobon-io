@@ -21,7 +21,7 @@ class Phobon extends Slider {
     }
 
     protected initNavigation() {
-        var navigationContainer = $("<div class='absolute h-100 f-none f-d-column w-huge f-j-center' style='right:2rem'/>").appendTo(this.site);
+        var navigationContainer = $("<div class='absolute h-100 f-none f-d-column w-huge f-j-center z5' style='right:2rem'/>").appendTo(this.site);
         this._navigation = $("<ul class='f-none f-d-column f-ai-end w-100'/>").appendTo(navigationContainer);
         this.panes.forEach((p, i, a) => {
             let n = $(`<li class='nav-item ${p.glyph}' data-index='${i}' class='o-0'></li>`).appendTo(this._navigation);            
