@@ -25,7 +25,7 @@ export class TheStudio extends Pane {
                 console.log("thestudio loaded");
                 resolve();
             };
-            this._image.src = "images/100.png";
+            this._image.src = "images/thestudio.png";
         });
 
         return p;
@@ -74,7 +74,7 @@ export class TheStudio extends Pane {
                 },
                 { 
                     e: this._details,
-                    p: { opacity: [0.5, 0], translateY: [0, 100] },
+                    p: { opacity: [1, 0], translateY: [0, 100] },
                     o: { 
                         duration: 500,
                         sequenceQueue: false,
@@ -84,7 +84,7 @@ export class TheStudio extends Pane {
                 },
                 { 
                     e: this._link,
-                    p: { opacity: [0.7, 0], translateY: [0, 100] },
+                    p: { opacity: [1, 0], translateY: [0, 100] },
                     o: { 
                         duration: 500,
                         sequenceQueue: false,
