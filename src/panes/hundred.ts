@@ -47,9 +47,9 @@ export class Hundred extends Pane {
         this._divider = $("<div class='m-t-small to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
         this._divider.velocity({ scaleX: 0 }, { duration: 0 });
 
-        this._details = $("<div class='f-none m-t-huge o-0 f4 lh-title'><span class='d-block'>100 days of experimentation in user interface and experience design inspired by <a class='d-inline-block o-70' href='http://www.dailyui.co/'>dailyui</a>.<br/><br/>I started it on December 15, 2015 and finished on <a class='d-inline-block o-70' href='https://twitter.com/thenoumenon/status/727319863266418688'>May 3, 2016</a>.</div>").appendTo(this._container);
+        this._details = $("<div class='f-none m-t-huge o-0 f4 lh-title'><span class='d-block'>100 days of experimentation in user interface and experience design inspired by <a class='d-inline-block' href='http://www.dailyui.co/'>dailyui</a>.<br/><br/>I started this ordeal on <a class='d-inline-block' target='_blank' href='https://thegrid.ai/100ui/1-signup/'>December 15, 2015</a> and finished on <a class='d-inline-block' href='https://twitter.com/thenoumenon/status/727319863266418688'>May 3, 2016</a>.</div>").appendTo(this._container);
 
-        this._link = $("<div class='f-none m-t-huge o-0 f4'><a class='o-70' href='http://phobon.io/100' target='_blank'>check it out</a></div>").appendTo(this._container);
+        this._link = $("<div class='f-none m-t-huge o-0 f4'><a href='http://phobon.io/100' target='_blank'>check it out</a></div>").appendTo(this._container);
 
         this._site.append("<div class='f'/>");
 
