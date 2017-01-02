@@ -32,8 +32,6 @@ export class TheStudio extends Pane {
         await this.loadImage(background, "images/ts2.png");
         await this.loadImage(foreground, "images/ts1.png");
 
-        console.log("hundred loaded");
-
         return Promise.resolve();
     }
 
@@ -42,14 +40,14 @@ export class TheStudio extends Pane {
 
         this._site.append("<div class='f'/>");
         this._container = $("<div class='f-none w-50 h-100 f-j-center f-ai-start f-d-column p-huge m-r-large'/>").appendTo(this._site);
-        this._header = $("<h3 class='f-none c-white o-0'>The Studio<br/>Physiotherapy & Clinical Pilates.</h3>").appendTo(this._container);
+        this._header = $("<div class='f-none c-white o-0 f-d-column f3'><span class='o-50 f-none f4'>2016</span><span class='f-none'>The Studio<br/>Physiotherapy & Clinical Pilates.</span></div>").appendTo(this._container);
 
-        this._divider = $("<div class='m-t-medium to-left br-b-tiny c-white-br o-50' style='width:180px'/>").appendTo(this._container);
+        this._divider = $("<div class='m-t-small to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
         this._divider.velocity({ scaleX: 0 }, { duration: 0 });
 
         this._details = $("<h4 class='f-none m-t-huge o-0'>The Studio is a boutique pilates and physiotherapy clinic located in Perth, Western Australia.<br/><br/>The brand is built around the personality and philosophy of its owner - clean, bright and striking.</h4>").appendTo(this._container);
 
-        this._link = $("<h4 class='f-none m-t-huge o-0'><a href='http://thestudiophysio.com' target='_blank'>check it out</a></h4>").appendTo(this._container);    
+        this._link = $("<h4 class='f-none m-t-huge o-0'><a href='http://thestudiophysio.com' target='_blank'>Check it out</a></h4>").appendTo(this._container);    
 
         // Set up background images.
         this._images["background"].site = $("<div class='absolute f-none o-0' style='left:5rem;top:0;'/>").appendTo(this._site);

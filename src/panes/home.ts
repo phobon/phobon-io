@@ -2,7 +2,7 @@ import { Pane, ISlider } from "./../slider/main";
 import { phobonGlyph } from "./../common";
 
 export class Home extends Pane {
-    private _delay: number = 1000;
+    private _delay: number = 500;
 
     private _icon: JQuery;
     private _header: JQuery;
@@ -14,12 +14,7 @@ export class Home extends Pane {
     }
 
     loadAssets(): Promise<void> {    
-        var p: Promise<void> = new Promise<void>((resolve, reject) => {
-            console.log("home loaded");
-            resolve();
-        });
-
-        return p;
+        return Promise.resolve();
     }
 
     protected layout() {
@@ -48,21 +43,21 @@ export class Home extends Pane {
                 },
                 { 
                     e: this._header,
-                    p: { opacity: [1, 0], translateY: [0, 100] },
+                    p: { opacity: [1, 0], translateY: [0, 75] },
                     o: { 
                         duration: 500,
-                        delay: 150,
+                        delay: 75,
                         sequenceQueue: false,
                         easing: "easeOutExpo"
                     }
                 },
                 { 
                     e: this._blurb,
-                    p: { opacity: [1, 0], translateY: [0, 100] },
+                    p: { opacity: [1, 0], translateY: [0, 75] },
                     o: { 
                         duration: 500,
                         sequenceQueue: false,
-                        delay: 300,
+                        delay: 150,
                         easing: "easeOutExpo",
                         complete: () => {
                             this._delay = 0;
@@ -84,39 +79,39 @@ export class Home extends Pane {
             this._header.velocity("stop");
             this._blurb.velocity("stop");
 
-            var s = [
-                { 
-                    e: this._icon,
-                    p: { scaleX: 0, scaleY: 0 },
-                    o: { 
-                        delay: this._delay,
-                        duration: 500,
-                        easing: "easeOutExpo"
-                    }
-                },
+            var s = [                
                 { 
                     e: this._header,
-                    p: { opacity: 0, translateY: [-100, 0] },
+                    p: { opacity: 0, translateY: [-75, 0] },
                     o: { 
                         duration: 400,
                         sequenceQueue: false,
-                        delay: 150,
                         easing: "easeInExpo"
                     }
                 },
                 { 
                     e: this._blurb,
-                    p: { opacity: 0, translateY: [-100, 0] },
+                    p: { opacity: 0, translateY: [-75, 0] },
                     o: { 
                         duration: 400,
                         sequenceQueue: false,
-                        delay: 150,
-                        easing: "easeInExpo",
+                        delay: 50,
+                        easing: "easeInExpo"
+                    }
+                },
+                { 
+                    e: this._icon,
+                    p: { scaleX: 0, scaleY: 0 },
+                    o: { 
+                        delay: 100,
+                        sequenceQueue: false,
+                        duration: 400,
+                        easing: "easeOutExpo",
                         complete: () => {
                             resolve();
                         }
                     }
-                }
+                },
             ];
 
             $.Velocity.RunSequence(s);

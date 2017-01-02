@@ -32,8 +32,6 @@ export class Hundred extends Pane {
         await this.loadImage(background, "images/second.png");
         await this.loadImage(foreground, "images/first.png");
 
-        console.log("hundred loaded");
-
         return Promise.resolve();
     }    
 
@@ -42,14 +40,14 @@ export class Hundred extends Pane {
         this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge z1'/>").appendTo(this._site);
         
         var headerSite = $("<div class='f-none of-hidden'/>").appendTo(this._container);
-        this._header = $("<h3 class='f-none c-white o-0'>hundred.</h3> ").appendTo(headerSite);
+        this._header = $("<div class='f-none c-white o-0 f-d-column f3'><span class='f-none o-50 f4'>2016</span><span class='f-none'>hundred.</span></div>").appendTo(headerSite);
 
         this._divider = $("<div class='m-t-small to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
         this._divider.velocity({ scaleX: 0 }, { duration: 0 });
 
         this._details = $("<div class='f-none m-t-huge o-0 f4 lh-title'><span class='d-block'>100 days of experimentation in user interface and experience design inspired by <a class='d-inline-block' href='http://www.dailyui.co/'>dailyui</a>.<br/><br/>I started this ordeal on <a class='d-inline-block' target='_blank' href='https://thegrid.ai/100ui/1-signup/'>December 15, 2015</a> and finished on <a class='d-inline-block' href='https://twitter.com/thenoumenon/status/727319863266418688'>May 3, 2016</a>.</div>").appendTo(this._container);
 
-        this._link = $("<div class='f-none m-t-huge o-0 f4'><a href='http://phobon.io/100' target='_blank'>check it out</a></div>").appendTo(this._container);
+        this._link = $("<div class='f-none m-t-huge o-0 f4'><a href='http://phobon.io/100' target='_blank'>Check it out</a></div>").appendTo(this._container);
 
         this._site.append("<div class='f'/>");
 
@@ -161,7 +159,7 @@ export class Hundred extends Pane {
                     o: {
                         duration: 500,    
                         sequenceQueue: false,
-                        delay: 150,
+                        delay: 75,
                         easing: "easeOutExpo"
                     }
                 },
@@ -169,8 +167,17 @@ export class Hundred extends Pane {
                     e: this._divider,
                     p: { scaleX: 0 },
                     o: { 
-                        delay: 300,
-                        duration: 800,
+                        duration: 400,
+                        delay: 100,
+                        sequenceQueue: false,
+                        easing: "easeOutExpo"
+                    }
+                },
+                { 
+                    e: this._link,
+                    p: { opacity: 0, translateY: [32, 0] },
+                    o: { 
+                        duration: 400,
                         sequenceQueue: false,
                         easing: "easeOutExpo"
                     }
@@ -179,35 +186,25 @@ export class Hundred extends Pane {
                     e: this._details,
                     p: { opacity: 0, translateY: [32, 0] },
                     o: { 
-                        duration: 600,
+                        duration: 400,
                         sequenceQueue: false,
-                        delay: 100,
+                        delay: 50,
                         easing: "easeOutExpo"
                     }
-                },
+                },                
                 { 
                     e: this._header,
                     p: { opacity: 0, translateY: [32, 0] },
                     o: { 
                         duration: 400,
                         sequenceQueue: false,
-                        delay: 200,
-                        easing: "easeOutExpo"
-                    }
-                },
-                { 
-                    e: this._link,
-                    p: { opacity: 0, translateY: [32, 0] },
-                    o: { 
-                        duration: 500,
-                        sequenceQueue: false,
-                        delay: 300,
+                        delay: 100,
                         easing: "easeOutExpo",
                         complete: () => {
                             resolve();
                         } 
                     }
-                },
+                }                
             ];
 
             $.Velocity.RunSequence(s);

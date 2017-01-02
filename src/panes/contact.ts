@@ -18,18 +18,13 @@ export class Contact extends Pane {
         this._blurb = $("<div class='f-none o-0 w-20 f4 m-horizontal-massive lh-title'><span class='d-block'><a class='d-inline-block' href='https://github.com/phobon/phobon-io' target='_blank'>Phobon</a> coalesced from a dark place in the void at the end of <a class='d-inline-block' href='https://en.wikipedia.org/wiki/2016' target='_blank'>2016</a>.<br/><br/>While I hope that we emerge stronger, let us never speak of that horror again.</span></div>").appendTo(this._site);
 
         this._links = $("<ul class='f-none f-d-column c-white w-20 f4 lh-copy' />").appendTo(this._site);
-        this._links.append("<li class='f-none o-0'><a href='http://github.io/phobon' target='_blank'>github</a></li>");
+        this._links.append("<li class='f-none o-0'><a href='https://github.com/phobon' target='_blank'>github</a></li>");
         this._links.append("<li class='f-none m-t-nano o-0'><a href='http://twitter.com/thenoumenon' target='_blank'>twitter</a></li>");
         this._links.append("<li class='f-none m-t-nano o-0'><a href='http://instagram.com/thenoumenon' target='_blank'>instagram</a></li>");
     }
 
     loadAssets(): Promise<void> {    
-        var p: Promise<void> = new Promise<void>((resolve, reject) => {  
-            console.log("contact loaded");
-            resolve();
-        });
-
-        return p;
+        return Promise.resolve();
     }
 
     protected enterActions(): Promise<void> {

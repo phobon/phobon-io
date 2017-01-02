@@ -85,10 +85,8 @@ class Phobon extends Slider {
                         duration: 500, 
                         easing: "easeOutExpo", 
                         complete: () => {
-                            setTimeout(() => {
-                                this._loadingBackgrounds[1].addClass("pulse");
-                                resolve();
-                            }, 500);                        
+                            this._loadingBackgrounds[1].addClass("pulse");
+                            resolve();                       
                         } 
                     }
                 }
