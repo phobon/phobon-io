@@ -31,7 +31,7 @@ export class Contact extends Pane {
         var p: Promise<void> = new Promise<void>((resolve, reject) => {
             this._about.velocity("stop");
             this._blurb.velocity("stop");
-            this._links.find("> li").velocity("stop");            
+            this._links.velocity("stop");            
 
             var s = [
                 {
@@ -47,15 +47,19 @@ export class Contact extends Pane {
                     p: { opacity: 1, translateY: [0, 30] },
                     o: { 
                         duration: 300,
+                        sequenceQueue: false,
+                        delay: 100,
                         easing: "easeOutExpo"
                     }
                 },
                 {
                     e: this._links.find("> li"),
-                    p: { opacity: 1, translateX: [0, -30] },
+                    p: { opacity: 1, translateY: [0, 30] },
                     o: { 
                         duration: 300,
                         easing: "easeOutExpo",
+                        sequenceQueue: false,
+                        delay: 150,
                         complete: () => {
                             resolve();
                         }
@@ -77,10 +81,10 @@ export class Contact extends Pane {
 
             var s = [
                 {
-                    e: this._about,
+                    e: this._links,
                     p: { opacity: 0, translateY: [30, 0] },
                     o: { 
-                        duration: 300,
+                        duration: 250,
                         easing: "easeOutExpo"
                     }
                 },
@@ -88,15 +92,19 @@ export class Contact extends Pane {
                     e: this._blurb,
                     p: { opacity: 0, translateY: [30, 0] },
                     o: { 
-                        duration: 300,
+                        duration: 250,
+                        sequenceQueue: false,
+                        delay: 100,
                         easing: "easeOutExpo"
                     }
                 },
                 {
-                    e: this._links.find("> li"),
-                    p: { opacity: 0, translateX: [-30, 0] },
+                    e: this._about,
+                    p: { opacity: 0, translateY: [30, 0] },
                     o: { 
-                        duration: 300,
+                        duration: 250,
+                        sequenceQueue: false,
+                        delay: 150,
                         easing: "easeOutExpo",
                         complete: () => {
                             resolve();

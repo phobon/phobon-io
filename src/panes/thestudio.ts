@@ -39,7 +39,7 @@ export class TheStudio extends Pane {
         this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center p-huge c-white f-d-row'/>");
 
         this._site.append("<div class='f'/>");
-        this._container = $("<div class='f-none w-50 h-100 f-j-center f-ai-start f-d-column p-huge m-r-large'/>").appendTo(this._site);
+        this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge m-r-large'/>").appendTo(this._site);
         this._header = $("<div class='f-none c-white o-0 f-d-column f3'><span class='o-50 f-none f4'>2016</span><span class='f-none'>The Studio<br/>Physiotherapy & Clinical Pilates.</span></div>").appendTo(this._container);
 
         this._divider = $("<div class='m-t-small to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
@@ -61,8 +61,8 @@ export class TheStudio extends Pane {
         var p: Promise<any> = new Promise((resolve, reject) => { 
             this._header.velocity("stop");
             this._details.velocity("stop");
-            this._images["background"].site.velocity("stop");
             this._images["foreground"].site.velocity("stop");
+            this._images["background"].site.velocity("stop");
             this._link.velocity("stop");
 
             var s = [
@@ -76,7 +76,7 @@ export class TheStudio extends Pane {
                 },
                 { 
                     e: this._header,
-                    p: { opacity: [1, 0], translateY: [0, 100] },
+                    p: { opacity: [1, 0], translateY: [0, 32] },
                     o: { 
                         sequenceQueue: false,
                         duration: 500,
@@ -85,7 +85,7 @@ export class TheStudio extends Pane {
                 },
                 { 
                     e: this._details,
-                    p: { opacity: [1, 0], translateY: [0, 100] },
+                    p: { opacity: [1, 0], translateY: [0, 32] },
                     o: { 
                         duration: 500,
                         sequenceQueue: false,
@@ -95,7 +95,7 @@ export class TheStudio extends Pane {
                 },
                 { 
                     e: this._link,
-                    p: { opacity: [1, 0], translateY: [0, 100] },
+                    p: { opacity: [1, 0], translateY: [0, 32] },
                     o: { 
                         duration: 500,
                         sequenceQueue: false,
@@ -108,20 +108,22 @@ export class TheStudio extends Pane {
                     p: { opacity: [1, 0], translateY: [0, -300] },
                     o: {
                         duration: 500,
-                        easing: "easeOutExpo"
+                        easing: "easeOutExpo",
+                        sequenceQueue: false,
+                        delay: 200,
+                        complete: () => {
+                            resolve();
+                        } 
                     }
                 },
                 {
                     e: this._images["background"].site,
-                    p: { opacity: [1, 0],  translateX: 256 },
+                    p: { opacity: [1, 0], translateX: 256 },
                     o: {
                         duration: 500,
-                        delay: 100,
                         sequenceQueue: false,
-                        easing: "easeOutExpo",
-                        complete: () => {
-                            resolve();
-                        } 
+                        delay: 200,
+                        easing: "easeOutExpo"
                     }
                 }
             ];
@@ -136,8 +138,9 @@ export class TheStudio extends Pane {
         var p: Promise<any> = new Promise((resolve, reject) => { 
             this._header.velocity("stop");
             this._details.velocity("stop");
-            this._images["background"].site.velocity("stop");
             this._images["foreground"].site.velocity("stop");
+            this._images["background"].site.velocity("stop");
+            this._link.velocity("stop");
 
             var s = [
                 {
@@ -152,9 +155,9 @@ export class TheStudio extends Pane {
                     e: this._images["foreground"].site,
                     p: { opacity: 0, translateY: -300 },
                     o: {
-                        duration: 400,  
-                        delay: 100,
-                        sequenceQueue: false,   
+                        duration: 500,    
+                        sequenceQueue: false,
+                        delay: 75,
                         easing: "easeOutExpo"
                     }
                 },
@@ -162,35 +165,44 @@ export class TheStudio extends Pane {
                     e: this._divider,
                     p: { scaleX: 0 },
                     o: { 
-                        delay: 300,
-                        duration: 800,
+                        duration: 400,
+                        delay: 100,
+                        sequenceQueue: false,
+                        easing: "easeOutExpo"
+                    }
+                },
+                { 
+                    e: this._link,
+                    p: { opacity: 0, translateY: [32, 0] },
+                    o: { 
+                        duration: 400,
                         sequenceQueue: false,
                         easing: "easeOutExpo"
                     }
                 },
                 { 
                     e: this._details,
-                    p: { opacity: 0, translateY: [100, 0] },
+                    p: { opacity: 0, translateY: [32, 0] },
+                    o: { 
+                        duration: 400,
+                        sequenceQueue: false,
+                        delay: 50,
+                        easing: "easeOutExpo"
+                    }
+                },                
+                { 
+                    e: this._header,
+                    p: { opacity: 0, translateY: [32, 0] },
                     o: { 
                         duration: 400,
                         sequenceQueue: false,
                         delay: 100,
-                        easing: "easeOutExpo"
-                    }
-                },
-                { 
-                    e: this._header,
-                    p: { opacity: 0, translateY: [100, 0] },
-                    o: { 
-                        duration: 400,
-                        sequenceQueue: false,
-                        delay: 200,
                         easing: "easeOutExpo",
                         complete: () => {
                             resolve();
                         } 
                     }
-                }
+                }                
             ];
 
             $.Velocity.RunSequence(s);
