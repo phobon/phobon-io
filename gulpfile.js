@@ -86,7 +86,7 @@ gulp.task('dev', ['clean', 'polyfill', 'tsc', 'less'], function() {
 });
 
 // Build our release files - if you don't mind compiling taking a couple of seconds, use this.
-gulp.task('release', ['clean', 'tsc', 'less'], function() {
+gulp.task('release', ['clean', 'polyfill', 'tsc', 'less'], function() {
     var bundledStream = through();
     
     // Set up our bundled stream with the output that we want to achieve.
