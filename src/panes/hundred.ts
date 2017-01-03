@@ -122,7 +122,7 @@ export class Hundred extends Pane {
                     e: this._images["background"].site,
                     p: { opacity: [1, 0], translateX: [0, 16], translateY: [0, 16] },
                     o: {
-                        duration: 1500,
+                        duration: 500,
                         sequenceQueue: false,
                         delay: 200,
                         easing: "easeOutExpo"

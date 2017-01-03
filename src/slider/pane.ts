@@ -75,6 +75,7 @@ export abstract class Pane implements IPane {
 
     private backgroundActions(targets: { top: JQuery; bottom: JQuery }): Promise<void> {
         let p: Promise<void> = new Promise<void>((resolve, reject) => {
+            targets.top.velocity("stop");
             targets.bottom.velocity("stop");
 
             // Swap the top and bottom backgrounds.
@@ -91,7 +92,7 @@ export abstract class Pane implements IPane {
                     opacity: [ 1, 0 ] 
                 }, 
                 { 
-                    duration: 2000,
+                    duration: 1500,
                     easing: "easeOutExpo",
                     complete: () => {
                         targets.top.addClass("d-none");
