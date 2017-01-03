@@ -1,4 +1,5 @@
 import { ISlider, Slider, IPane } from "./slider/main";
+import { phobonGlyph } from "./common";
 import * as Panes from "./panes/main";
 
 var instance: ISlider;
@@ -18,6 +19,19 @@ class Phobon extends Slider {
             new Panes.Hundred(this), 
             new Panes.TheStudio(this),
             new Panes.Contact(this));        
+    }
+
+    protected initGlyph() {    
+        this._glyph = $(`<div class='z6 absolute m-large c-white-f o-80 cur-pointer transition-s' style='top:0;right:0'>${phobonGlyph}</div>`).appendTo(this._site);
+        this._glyph.on("mouseenter", () => {
+            this._glyph.removeClass("o-80");
+        });
+        this._glyph.on("mouseleave", () => {
+            this._glyph.addClass("o-80");
+        });
+        this._glyph.on("click", () => {
+            this.currentPane = this.panes[0];
+        });
     }
 
     protected initNavigation() {
@@ -135,7 +149,7 @@ class Phobon extends Slider {
         });
 
         return p;
-    }
+    }    
 }
 
 $(() => {

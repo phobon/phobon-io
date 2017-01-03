@@ -98,6 +98,7 @@ export abstract class Slider implements ISlider {
 
     protected abstract initPanes();
 
+    protected abstract initGlyph();
     protected abstract initNavigation();    
 
     protected abstract updateNavigation(args: { previous?: IPane; current: IPane }): Promise<void>;
@@ -147,17 +148,6 @@ export abstract class Slider implements ISlider {
             this.currentPane = this.panes[i];
         });
 
-        // // Render the empty state so we can load all of these assets.
-        // this.loadingStart();
-
-        // // Load assets and then set the active pane.
-        // this.loadAssets().then(() => {
-        //     this.loadingEnd().then(() => {
-        //         this.initNavigation();
-        //         this.currentPane = this.panes[0];
-        //     });            
-        // });
-
         this.loading();
     }
 
@@ -165,6 +155,7 @@ export abstract class Slider implements ISlider {
         await this.loadingStart();
         await this.loadAssets();
         await this.loadingEnd().then(() => {
+            this.initGlyph();
             this.initNavigation();
             this.currentPane = this.panes[0];
         });

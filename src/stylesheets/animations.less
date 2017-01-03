@@ -15,3 +15,26 @@
         opacity: 0;
     }
 }
+
+.mousewheel {
+    animation: mousewheelanim 1.7s infinite;
+}
+
+@keyframes mousewheelanim {
+    0% {
+        opacity: 0; 
+        transform: translateY(0);
+    }
+
+    5% {
+        opacity: 1;
+    }
+
+    95% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 0;
+    }    
+}
