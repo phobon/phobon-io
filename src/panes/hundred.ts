@@ -40,14 +40,14 @@ export class Hundred extends Pane {
         this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge z1'/>").appendTo(this._site);
         
         var headerSite = $("<div class='f-none of-hidden'/>").appendTo(this._container);
-        this._header = $("<div class='f-none c-white o-0 f-d-column f3'><span class='f-none o-50 f4'>2016</span><span class='f-none'>hundred.</span></div>").appendTo(headerSite);
+        this._header = $("<div class='f-none c-white o-0 f-d-column f3'><span class='f-none o-50 f4'>2016</span><span class='f-none'>Hundred.</span></div>").appendTo(headerSite);
 
         this._divider = $("<div class='m-t-small to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
         this._divider.velocity({ scaleX: 0 }, { duration: 0 });
 
-        this._details = $("<div class='f-none m-t-huge o-0 f4 lh-title'><span class='d-block'>100 days of experimentation in user interface and experience design inspired by <a class='d-inline-block' href='http://www.dailyui.co/'>dailyui</a>.<br/><br/>I started this ordeal on <a class='d-inline-block' target='_blank' href='https://thegrid.ai/100ui/1-signup/'>Dec 15, 2015</a> and finished on <a class='d-inline-block' href='https://twitter.com/thenoumenon/status/727319863266418688'>May 3, 2016</a>.</div>").appendTo(this._container);
+        this._details = $("<div class='f-none m-t-huge o-0 f4 lh-title'><span class='d-block'>100 days of experimentation in user interface and experience design inspired by <a class='d-inline-block' href='http://www.dailyui.co/'>Daily UI</a>.<br/><br/>I started this ordeal on <a class='d-inline-block' target='_blank' href='https://thegrid.ai/100ui/1-signup/'>Dec 15, 2015</a> and finished on <a class='d-inline-block' href='https://twitter.com/thenoumenon/status/727319863266418688'>May 3, 2016</a>.</div>").appendTo(this._container);
 
-        this._link = $("<div class='f-none m-t-huge o-0 f4'><a href='http://phobon.io/100' target='_blank'>Check it out</a></div>").appendTo(this._container);
+        this._link = $("<div class='f-none m-t-huge o-0 f4'><a href='http://phobon.io/100' target='_blank'>Check it out.</a></div>").appendTo(this._container);
 
         this._site.append("<div class='f'/>");
 

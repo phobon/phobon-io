@@ -47,7 +47,7 @@ export class TheStudio extends Pane {
 
         this._details = $("<h4 class='f-none m-t-huge o-0'>The Studio is a boutique pilates and physiotherapy clinic located in Perth, Western Australia.<br/><br/>The brand is built around the personality and philosophy of its owner - clean, bright and striking.</h4>").appendTo(this._container);
 
-        this._link = $("<h4 class='f-none m-t-huge o-0'><a href='http://thestudiophysio.com' target='_blank'>Check it out</a></h4>").appendTo(this._container);    
+        this._link = $("<h4 class='f-none m-t-huge o-0'><a href='http://thestudiophysio.com' target='_blank'>Check it out.</a></h4>").appendTo(this._container);    
 
         // Set up background images.
         this._images["background"].site = $("<div class='absolute f-none o-0' style='left:5rem;top:0;'/>").appendTo(this._site);

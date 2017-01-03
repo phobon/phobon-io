@@ -9,7 +9,7 @@
     ],
     "tasks": [
         {
-            "taskName": "dev",
+            "taskName": "release",
             "showOutput": "always",
             "isBuildCommand": true
         }
