@@ -20,18 +20,18 @@ export class Home extends Pane {
     }
 
     protected layout() {
-        this._site = $("<div class='f h-100 f-d-column f-j-center f-ai-center c-white'/>");
+        this._site = $("<div class='f home h-100 f-d-column f-j-center f-ai-center c-white'/>");
         
         this._site.append("<div class='f'/>");
         
-        var iconSite = $("<div class='w-80 f-j-start f-ai-start m-b-massive f-none'/>").appendTo(this._site);
-        this._icon = $(`<div class='f-none c-gray-ll-f c-gray-ll-tt-bg br-ra-huge p-small o-0'>${phobonGlyph}</div>`).appendTo(iconSite);
-        this._header = $(`<div class='f-none w-80 o-0 f-d-row f-w f3'><span class='d-block'>Hi, I'm Ben; a software developer based in <a class='d-inline-block' href='https://en.wikipedia.org/wiki/Perth' target='_blank'>Perth, WA</a>. I make user interfaces; focusing on building cool, performant front-end experiences.</span></div>`).appendTo(this._site);
-        this._blurb = $("<div class='f-none w-80 f-d-row f-w m-t-large o-0 f3'><span class='d-block'>I'm currently at <a class='d-inline-block' href='http://acquire.com.au' target='_blank'>acQuire</a> but I've recently helped <a class='d-inline-block' href='http://thestudiophysio.com' target='_blank'>The Studio</a> with their boutique style.</span></div>.").appendTo(this._site);        
+        var iconSite = $("<div class='icon w-80 f-j-start f-ai-start f-none'/>").appendTo(this._site);
+        this._icon = $(`<div class='f-none c-gray-ll-f c-gray-ll-tt-bg br-ra-huge o-0'>${phobonGlyph}</div>`).appendTo(iconSite);
+        this._header = $(`<div class='f-none w-80 o-0 f-d-row f-w'><span class='d-block'>Hi, I'm Ben; a software developer based in <a class='d-inline-block' href='https://en.wikipedia.org/wiki/Perth' target='_blank'>Perth, WA</a>. I make user interfaces; focusing on building cool, performant front-end experiences.</span></div>`).appendTo(this._site);
+        this._blurb = $("<div class='f-none w-80 f-d-row f-w m-t-large o-0'><span class='d-block'>I'm currently at <a class='d-inline-block' href='http://acquire.com.au' target='_blank'>acQuire</a> but I've recently helped <a class='d-inline-block' href='http://thestudiophysio.com' target='_blank'>The Studio</a> with their boutique style.</span></div>.").appendTo(this._site);        
 
         this._site.append("<div class='f'/>");
 
-        this._mouseWheel = $(`<div class='o-0 w-medium h-large br-ra-medium c-white-br f-none f-j-center f-ai-start br-nano m-b-large'><span class='mousewheel m-t-tiny f-none c-white-bg br-ra-large w-nano h-nano'></span></div>`).appendTo(this._site);
+        this._mouseWheel = $(`<div class='mousewheel o-0 w-medium h-large br-ra-medium c-white-br f-j-center f-ai-start br-nano m-b-large'><span class='mousewheel m-t-tiny f-none c-white-bg br-ra-large w-nano h-nano'></span></div>`).appendTo(this._site);
     }
 
     protected enterActions(): Promise<void> {

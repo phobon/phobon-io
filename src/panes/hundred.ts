@@ -18,13 +18,13 @@ export class Hundred extends Pane {
     async loadAssets(): Promise<void> {    
         // Load images as necessary.
         var background = new Image();
-        background.className = "f-none o-20";
+        background.className = "background-img o-20";
         this._images["background"] = {
             image: background
         }
 
         var foreground = new Image();
-        foreground.className = "f-none";
+        foreground.className = "background-img";
         this._images["foreground"] = {
             image: foreground
         }
@@ -36,18 +36,18 @@ export class Hundred extends Pane {
     }    
 
     protected layout() {
-        this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center p-huge c-white f-d-row'/>");
-        this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge z1'/>").appendTo(this._site);
+        this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center c-white f-d-row'/>");
+        this._container = $("<div class='text-container f-none h-100 f-j-center f-ai-start f-d-column z1'/>").appendTo(this._site);
         
         var headerSite = $("<div class='f-none of-hidden'/>").appendTo(this._container);
-        this._header = $("<div class='f-none c-white o-0 f-d-column f3'><span class='f-none o-50 f4'>2016</span><span class='f-none'>Hundred.</span></div>").appendTo(headerSite);
+        this._header = $("<div class='f-none header c-white o-0 f-d-column'><span class='f-none o-50 year'>2016</span><span class='f-none'>Hundred.</span></div>").appendTo(headerSite);
 
-        this._divider = $("<div class='m-t-small to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
+        this._divider = $("<div class='divider to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
         this._divider.velocity({ scaleX: 0 }, { duration: 0 });
 
-        this._details = $("<div class='f-none m-t-huge o-0 f4 lh-title'><span class='d-block'>100 days of experimentation in user interface and experience design inspired by <a class='d-inline-block' href='http://www.dailyui.co/'>Daily UI</a>.<br/><br/>I started this ordeal on <a class='d-inline-block' target='_blank' href='https://thegrid.ai/100ui/1-signup/'>Dec 15, 2015</a> and finished on <a class='d-inline-block' href='https://twitter.com/thenoumenon/status/727319863266418688'>May 3, 2016</a>.</div>").appendTo(this._container);
+        this._details = $("<div class='f-none o-0 detail lh-title'><span class='d-block'>100 days of experimentation in user interface and experience design inspired by <a class='d-inline-block' href='http://www.dailyui.co/'>Daily UI</a>.<br/><br/>I started this ordeal on <a class='d-inline-block' target='_blank' href='https://thegrid.ai/100ui/1-signup/'>Dec 15, 2015</a> and finished on <a class='d-inline-block' href='https://twitter.com/thenoumenon/status/727319863266418688'>May 3, 2016</a>.</div>").appendTo(this._container);
 
-        this._link = $("<div class='f-none m-t-huge o-0 f4'><a href='http://phobon.io/100' target='_blank'>Check it out.</a></div>").appendTo(this._container);
+        this._link = $("<div class='f-none o-0 detail'><a href='http://phobon.io/100' target='_blank'>Check it out.</a></div>").appendTo(this._container);
 
         this._site.append("<div class='f'/>");
 

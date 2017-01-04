@@ -18,13 +18,13 @@ export class TheStudio extends Pane {
     async loadAssets(): Promise<void> {    
         // Load images as necessary.
         var background = new Image();
-        background.className = "f-none o-80 h-100";
+        background.className = "background-img o-80 h-100";
         this._images["background"] = {
             image: background
         }
 
         var foreground = new Image();
-        foreground.className = "f-none h-100";
+        foreground.className = "background-img h-100";
         this._images["foreground"] = {
             image: foreground
         }
@@ -36,24 +36,24 @@ export class TheStudio extends Pane {
     }
 
     protected layout() {
-        this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center p-huge c-white f-d-row'/>");
+        this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center c-white f-d-row'/>");
 
         this._site.append("<div class='f'/>");
-        this._container = $("<div class='f-none w-40 h-100 f-j-center f-ai-start f-d-column p-huge m-r-large'/>").appendTo(this._site);
-        this._header = $("<div class='f-none c-white o-0 f-d-column f3'><span class='o-50 f-none f4'>2016</span><span class='f-none'>The Studio<br/>Physiotherapy & Clinical Pilates.</span></div>").appendTo(this._container);
+        this._container = $("<div class='f-none text-container h-100 f-j-center f-ai-start f-d-column'/>").appendTo(this._site);
+        this._header = $("<div class='header f-none c-white o-0 f-d-column'><span class='o-50 f-none year'>2016</span><span class='f-none'>The Studio<br/>Physiotherapy & Clinical Pilates.</span></div>").appendTo(this._container);
 
-        this._divider = $("<div class='m-t-small to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
+        this._divider = $("<div class='divider to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
         this._divider.velocity({ scaleX: 0 }, { duration: 0 });
 
-        this._details = $("<h4 class='f-none m-t-huge o-0'>The Studio is a boutique pilates and physiotherapy clinic located in Perth, Western Australia.<br/><br/>The brand is built around the personality and philosophy of its owner - clean, bright and striking.</h4>").appendTo(this._container);
+        this._details = $("<div class='detail f-none o-0'>The Studio is a boutique pilates and physiotherapy clinic located in Perth, Western Australia.<br/><br/>The brand is built around the personality and philosophy of its owner - clean, bright and striking.</dive>").appendTo(this._container);
 
-        this._link = $("<h4 class='f-none m-t-huge o-0'><a href='http://thestudiophysio.com' target='_blank'>Check it out.</a></h4>").appendTo(this._container);    
+        this._link = $("<div class='detail f-none o-0'><a href='http://thestudiophysio.com' target='_blank'>Check it out.</a></div>").appendTo(this._container);    
 
         // Set up background images.
-        this._images["background"].site = $("<div class='absolute f-none o-0' style='left:5rem;top:0;'/>").appendTo(this._site);
+        this._images["background"].site = $("<div class='background-img absolute f-none o-0' style='left:5rem;top:0;'/>").appendTo(this._site);
         this._images["background"].site.append(this._images["background"].image);
 
-        this._images["foreground"].site = $("<div class='absolute f-none o-0' style='left:5rem;top:0;'/>").appendTo(this._site);
+        this._images["foreground"].site = $("<div class='background-img absolute f-none o-0' style='left:5rem;top:0;'/>").appendTo(this._site);
         this._images["foreground"].site.append(this._images["foreground"].image);    
     }
 
