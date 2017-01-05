@@ -59,10 +59,9 @@ export abstract class Slider implements ISlider {
     }
 
     set currentPane(value: IPane) {
-        // if (this.isStateChanging) {
-        //     console.log(`Cannot change current pane while state is changing.`);
-        //     return;
-        // }
+        if (this.isStateChanging) {
+            return;
+        }
 
         this._isStateChanging = true;
 
@@ -128,9 +127,9 @@ export abstract class Slider implements ISlider {
         // Initialize scroll-wheel handling. Yes, this scrolljacks, but sometimes you just want to see the world burn.
         window.addEventListener("wheel", e => {
             e.preventDefault();
-            // if (this._isStateChanging) {
-            //     return;
-            // }
+            if (this._isStateChanging) {
+                return;
+            }
 
             // Determine the index of the current pane so we know which one to switch to.
             let i = this.panes.indexOf(this.currentPane);

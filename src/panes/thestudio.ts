@@ -68,7 +68,7 @@ export class TheStudio extends Pane {
             var s = [
                 { 
                     e: this._divider,
-                    p: { scaleX: 1 },
+                    p: { scaleX: [1, 0] },
                     o: { 
                         duration: 1000,
                         easing: "easeOutExpo"

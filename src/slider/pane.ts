@@ -39,9 +39,15 @@ export abstract class Pane implements IPane {
             // Append to the site to the parent so we can actually start to see it.
             this._site.appendTo(this.parent.site);
 
-            Promise.all([this.backgroundActions(this.parent.backgrounds), this.enterActions()]).then(() => {
+            this.backgroundActions(this.parent.backgrounds).then(() => {
                 resolve();
-            });            
+            });
+
+            this.enterActions();
+
+            // Promise.all([this.backgroundActions(this.parent.backgrounds), this.enterActions()]).then(() => {
+            //     resolve();
+            // });            
         });        
 
         return p;
@@ -92,7 +98,7 @@ export abstract class Pane implements IPane {
                     opacity: [ 1, 0 ] 
                 }, 
                 { 
-                    duration: 1500,
+                    duration: 800,
                     easing: "easeOutExpo",
                     complete: () => {
                         targets.top.addClass("d-none");

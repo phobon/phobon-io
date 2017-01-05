@@ -31,7 +31,7 @@ export class Home extends Pane {
 
         this._site.append("<div class='f'/>");
 
-        this._mouseWheel = $(`<div class='mousewheel o-0 w-medium h-large br-ra-medium c-white-br f-j-center f-ai-start br-nano m-b-large'><span class='mousewheel m-t-tiny f-none c-white-bg br-ra-large w-nano h-nano'></span></div>`).appendTo(this._site);
+        this._mouseWheel = $(`<div class='mouse o-0 w-medium h-large br-ra-medium c-white-br f-j-center f-ai-start br-nano m-b-large'><span class='mousewheel m-t-tiny f-none c-white-bg br-ra-large w-nano h-nano'></span></div>`).appendTo(this._site);
     }
 
     protected enterActions(): Promise<void> {
