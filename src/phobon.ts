@@ -35,8 +35,8 @@ class Phobon extends Slider {
     }
 
     protected initNavigation() {
-        var navigationContainer = $("<div class='absolute h-100 f-none f-d-column w-huge f-j-center z5' style='right:2rem'/>").appendTo(this.site);
-        this._navigation = $("<ul class='f-none f-d-column f-ai-end w-100'/>").appendTo(navigationContainer);
+        var navContainer = $("<div class='nav-container absolute f-none z5'/>").appendTo(this.site);
+        this._navigation = $("<ul class='f-none'/>").appendTo(navContainer);
         this.panes.forEach((p, i, a) => {
             let n = $(`<li class='nav-item ${p.glyph}' data-index='${i}' class='o-0'></li>`).appendTo(this._navigation);            
             n.on("click", () => {
@@ -71,7 +71,7 @@ class Phobon extends Slider {
             this._loadingBackgrounds = [];
             this._loadingBackgrounds.push($(`<div class='absolute w-100 h-100 gr-loading1' style='margin:auto;left:0:top:0;width:5.75rem;height:8.9375rem'/>`).appendTo(this._loadingSite));
             this._loadingBackgrounds.push($("<div class='absolute w-100 h-100 gr-loading2 o-0' style='margin:auto;left:0:top:0;width:5.75rem;height:8.9375rem'/>").appendTo(this._loadingSite));
-            this._loadingContent = $(`<div class='f-none c-white-f o-0' style='z-index:1'>${Phobon._phobonExpanded}</div>`).appendTo(this._loadingSite);
+            this._loadingContent = $(`<div class='f-none c-white-f o-0 f-j-center f-ai-center' style='z-index:1'>${Phobon._phobonExpanded}</div>`).appendTo(this._loadingSite);
 
             this._loadingSite.velocity({ scaleX: 0, scaleY: 0.05 }, { duration: 0 });
             this._loadingContent.velocity({ scaleX: 0.8, scaleY: 0.8 }, { duration: 0 });

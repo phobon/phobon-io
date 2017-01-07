@@ -1,31 +1,78 @@
-.nav-item {
-    .cur-pointer;    
-    .w-small;
-    .h-small;
-    transition: width 0.2s ease-out;
+.nav-container {
+    .h-100;
+    .w-huge;
+    .f-ai-center;
+    .f-j-center;
+    right: 2rem;
+    bottom: 0;
 
-    &:after {
-        height: 0.125rem;
-        .c-black-tt-bg;
-        top:50%;
-        left:0;
-        right:0;
-        content: "";
-        .f-none;
-        transition: background-color 0.15s ease-out;
-        .relative;
-    }
+    > ul {
+        .f-d-column;
+        .f-ai-end;
+        .f-j-center;
 
-    &.active {        
-        .pe-none;
-        .w-huge;
+        .nav-item {
+            .cur-pointer;    
+            .w-small;
+            .h-small;
+            transition: width 0.2s ease-out;
 
-        &::after {
-            .c-white-bg;
+            &:after {
+                height: 0.125rem;
+                .c-black-tt-bg;
+                top:50%;
+                left:0;
+                right:0;
+                content: "";
+                .f-none;
+                transition: background-color 0.15s ease-out;
+                .relative;
+            }
+
+            &.active {        
+                .pe-none;
+                .w-huge;
+
+                &::after {
+                    .c-white-bg;
+                }
+            }
+
+            &:hover {
+                .w-huge;
+            }
         }
-    }
+    }    
+}
 
-    &:hover {
-        .w-huge;
+@media only screen and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+    .nav-container {
+        .w-100;
+        .h-huge; 
+        bottom: 1rem;
+        right: 0;
+
+        > ul {
+            .f-d-row;
+            .f-ai-end;
+            .f-j-center;
+
+            .nav-item {
+                top:35%;
+                .m-horizontal-tiny;
+
+                &:after {
+                    height: 0.375rem;
+                }
+
+                &.active {       
+                    .w-small;
+                }
+
+                &:hover {
+                    .w-small;
+                }
+            } 
+        }             
     }
 }

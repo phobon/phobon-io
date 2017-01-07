@@ -21,6 +21,7 @@ export class Contact extends Pane {
         this._links.append("<li class='f-none'><a href='https://github.com/phobon' target='_blank'>github</a></li>");
         this._links.append("<li class='f-none m-t-nano'><a href='http://twitter.com/thenoumenon' target='_blank'>twitter</a></li>");
         this._links.append("<li class='f-none m-t-nano'><a href='http://instagram.com/thenoumenon' target='_blank'>instagram</a></li>");
+        this._links.append("<li class='f-none m-t-nano'><a href='https://standardresume.co/benmccormick' target='_blank'>resume</a></li>");
     }
 
     loadAssets(): Promise<void> {    
