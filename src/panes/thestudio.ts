@@ -65,7 +65,7 @@ export class TheStudio extends Pane {
             this._images["background"].site.velocity("stop");
             this._link.velocity("stop");
 
-            var s = [
+            var s: any[] = [
                 { 
                     e: this._divider,
                     p: { scaleX: [1, 0] },
@@ -102,8 +102,11 @@ export class TheStudio extends Pane {
                         delay: 300,
                         easing: "easeOutExpo"
                     }
-                },
-                {
+                }                
+            ];
+
+            if (this._images["foreground"].site.hasClass("f-none")) {
+                s.push({
                     e: this._images["foreground"].site,
                     p: { opacity: [1, 0], translateY: [0, -300] },
                     o: {
@@ -115,8 +118,11 @@ export class TheStudio extends Pane {
                             resolve();
                         } 
                     }
-                },
-                {
+                });
+            }
+
+            if (this._images["background"].site.hasClass("f-none")) {
+                s.push({
                     e: this._images["background"].site,
                     p: { opacity: [1, 0], translateX: 256 },
                     o: {
@@ -125,8 +131,8 @@ export class TheStudio extends Pane {
                         delay: 200,
                         easing: "easeOutExpo"
                     }
-                }
-            ];
+                });
+            }
 
             $.Velocity.RunSequence(s);
          });        
@@ -142,16 +148,21 @@ export class TheStudio extends Pane {
             this._images["background"].site.velocity("stop");
             this._link.velocity("stop");
 
-            var s = [
-                {
+            var s: any[] = [];
+            
+            if (this._images["background"].site.hasClass("f-none")) {
+                s.push({
                     e: this._images["background"].site,
                     p: { opacity: 0, translateX: 0 },
                     o: {
                         duration: 400,     
                         easing: "easeOutExpo"
                     }
-                },
-                {
+                });
+            }
+
+            if (this._images["foreground"].site.hasClass("f-none")) {
+                s.push({
                     e: this._images["foreground"].site,
                     p: { opacity: 0, translateY: -300 },
                     o: {
@@ -160,7 +171,10 @@ export class TheStudio extends Pane {
                         delay: 75,
                         easing: "easeOutExpo"
                     }
-                },
+                });
+            }
+            
+            s.push(
                 { 
                     e: this._divider,
                     p: { scaleX: 0 },
@@ -203,7 +217,7 @@ export class TheStudio extends Pane {
                         } 
                     }
                 }                
-            ];
+            );
 
             $.Velocity.RunSequence(s);
          });        

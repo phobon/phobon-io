@@ -67,7 +67,7 @@ export class Hundred extends Pane {
             this._images["background"].site.velocity("stop");
             this._link.velocity("stop");
 
-            var s = [
+            var s: any[] = [
                 { 
                     e: this._divider,
                     p: { scaleX: [1, 0] },
@@ -104,8 +104,11 @@ export class Hundred extends Pane {
                         delay: 300,
                         easing: "easeOutExpo"
                     }
-                },
-                {
+                }                
+            ];
+
+            if (this._images["foreground"].site.hasClass("f-none")) {
+                s.push({
                     e: this._images["foreground"].site,
                     p: { opacity: [1, 0], translateX: [0, 150], translateY: [0, 300] },
                     o: {
@@ -117,8 +120,11 @@ export class Hundred extends Pane {
                             resolve();
                         } 
                     }
-                },
-                {
+                });
+            }
+
+            if (this._images["background"].site.hasClass("f-none")) {
+                s.push({
                     e: this._images["background"].site,
                     p: { opacity: [1, 0], translateX: [0, 16], translateY: [0, 16] },
                     o: {
@@ -127,8 +133,8 @@ export class Hundred extends Pane {
                         delay: 200,
                         easing: "easeOutExpo"
                     }
-                }
-            ];
+                });                
+            }
 
             $.Velocity.RunSequence(s);
          });        
@@ -144,16 +150,21 @@ export class Hundred extends Pane {
             this._images["background"].site.velocity("stop");
             this._link.velocity("stop");
 
-            var s = [
-                {
+            var s: any[] = [];
+
+            if (this._images["foreground"].site.hasClass("f-none")) {
+                s.push({
                     e: this._images["foreground"].site,
                     p: { opacity: 0, translateX: [150, 0], translateY: [300, 0] },
                     o: {
-                        duration: 400,     
-                        easing: "easeInExpo"
+                        duration: 400,    
+                        easing: "easeOutExpo"
                     }
-                },
-                {
+                });
+            }
+
+            if (this._images["background"].site.hasClass("f-none")) {
+                s.push({
                     e: this._images["background"].site,
                     p: { opacity: 0, translateX: [16, 0], translateY: [16, 0] },
                     o: {
@@ -162,8 +173,10 @@ export class Hundred extends Pane {
                         delay: 75,
                         easing: "easeOutExpo"
                     }
-                },
-                { 
+                });                
+            }
+
+            s.push({ 
                     e: this._divider,
                     p: { scaleX: 0 },
                     o: { 
@@ -205,7 +218,7 @@ export class Hundred extends Pane {
                         } 
                     }
                 }                
-            ];
+            );            
 
             $.Velocity.RunSequence(s);
          });        
