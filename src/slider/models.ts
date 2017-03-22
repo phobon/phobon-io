@@ -1,8 +1,6 @@
 export interface IPane {
     id: string;
 
-    glyph: "square" | "round";
-
     enter(): Promise<void>;
     exit(): Promise<void>;
 
@@ -10,10 +8,10 @@ export interface IPane {
 }
 
 export interface ISlider {
-    glyph: JQuery;
-    backgrounds: { top: JQuery; bottom: JQuery };      
-    site: JQuery;
-    navigation: JQuery;
+    glyph: HTMLElement;
+    backgrounds: { top: HTMLElement; bottom: HTMLElement };      
+    site: HTMLElement;
+    navigation: HTMLElement;
 
     panes: IPane[];
     currentPane: IPane;

@@ -1,17 +1,17 @@
 import { Pane, ISlider } from "./../slider/main";
 
 export class Hundred extends Pane {
-    private _container: JQuery;
-    private _header: JQuery;
-    private _divider: JQuery;
+    private _container: HTMLElement;
+    private _header: HTMLElement;
+    private _divider: HTMLElement;
 
-    private _details: JQuery;
-    private _link: JQuery;
+    private _details: HTMLElement;
+    private _link: HTMLElement;
 
-    private _images: { [ index: string ]: { site?: JQuery; image: HTMLImageElement } } = {};
+    private _images: { [ index: string ]: { site?: HTMLElement; image: HTMLImageElement } } = {};
 
     constructor(parent: ISlider) {
-        super("hundred", "round", parent);
+        super("hundred", parent);
         this._backgroundClass = "gr-100";
     }    
 
@@ -61,12 +61,6 @@ export class Hundred extends Pane {
 
     protected enterActions(): Promise<void> {
         var p: Promise<any> = new Promise((resolve, reject) => { 
-            this._header.velocity("stop");
-            this._details.velocity("stop");
-            this._images["foreground"].site.velocity("stop");
-            this._images["background"].site.velocity("stop");
-            this._link.velocity("stop");
-
             var s: any[] = [
                 { 
                     e: this._divider,
@@ -107,7 +101,7 @@ export class Hundred extends Pane {
                 }                
             ];
 
-            if (this._images["foreground"].site.hasClass("f-none")) {
+            if (this._images["foreground"].site.classList.contains("f-none")) {
                 s.push({
                     e: this._images["foreground"].site,
                     p: { opacity: [1, 0], translateX: [0, 150], translateY: [0, 300] },
@@ -123,7 +117,7 @@ export class Hundred extends Pane {
                 });
             }
 
-            if (this._images["background"].site.hasClass("f-none")) {
+            if (this._images["background"].site.classList.contains("f-none")) {
                 s.push({
                     e: this._images["background"].site,
                     p: { opacity: [1, 0], translateX: [0, 16], translateY: [0, 16] },
@@ -136,23 +130,17 @@ export class Hundred extends Pane {
                 });                
             }
 
-            $.Velocity.RunSequence(s);
+            Velocity.RunSequence(s);
          });        
 
         return p; 
     }
 
     protected exitActions(): Promise<void> {
-        var p: Promise<any> = new Promise((resolve, reject) => { 
-            this._header.velocity("stop");
-            this._details.velocity("stop");
-            this._images["foreground"].site.velocity("stop");
-            this._images["background"].site.velocity("stop");
-            this._link.velocity("stop");
-
+        var p: Promise<any> = new Promise((resolve, reject) => {
             var s: any[] = [];
 
-            if (this._images["foreground"].site.hasClass("f-none")) {
+            if (this._images["foreground"].site.classList.contains("f-none")) {
                 s.push({
                     e: this._images["foreground"].site,
                     p: { opacity: 0, translateX: [150, 0], translateY: [300, 0] },
@@ -163,7 +151,7 @@ export class Hundred extends Pane {
                 });
             }
 
-            if (this._images["background"].site.hasClass("f-none")) {
+            if (this._images["background"].site.classList.contains("f-none")) {
                 s.push({
                     e: this._images["background"].site,
                     p: { opacity: 0, translateX: [16, 0], translateY: [16, 0] },
@@ -220,7 +208,7 @@ export class Hundred extends Pane {
                 }                
             );            
 
-            $.Velocity.RunSequence(s);
+            Velocity.RunSequence(s);
          });        
 
         return p; 

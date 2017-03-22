@@ -1,10 +1,10 @@
 ﻿/* 
     Z-index values.
 */
-@z-base:              950;
+@z-base:              0;
 
 .zindex-procs(@iterator:1) when (@iterator <= 8) {
-    .z@{iterator} {
+    .z-@{iterator} {
         z-index: @z-base + @iterator;
     }
 

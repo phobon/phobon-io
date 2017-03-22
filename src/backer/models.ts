@@ -1,5 +1,5 @@
 export interface IBacker {
-    site: JQuery;
+    site: HTMLElement;
     image: HTMLImageElement;
 
     enter(): Promise<void>;

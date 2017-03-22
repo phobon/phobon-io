@@ -1,7 +1,7 @@
 import { ISlider, IPane } from "./models";
 
 export abstract class Slider implements ISlider {
-    private _host: JQuery;    
+    private _host: HTMLElement;    
 
     private _panes: IPane[];
     private _currentPane: IPane;
@@ -9,20 +9,20 @@ export abstract class Slider implements ISlider {
     private _isStateChanging: boolean = false; 
 
     // Backgrounds for transitions.
-    private _backgrounds: { [index: string]: JQuery } = {};
+    private _backgrounds: { [index: string]: HTMLElement } = {};
     private _currentTopBackground: "1" | "2";
 
-    protected _site: JQuery;    
-    protected _navigation: JQuery;
-    protected _glyph: JQuery;
+    protected _site: HTMLElement;    
+    protected _navigation: HTMLElement;
+    protected _glyph: HTMLElement;
 
-    constructor(host: JQuery) {
+    constructor(host: HTMLElement) {
         this._host = host;
         this.init();
     }
 
-    get backgrounds(): { top: JQuery; bottom: JQuery } {
-        var b: { top: JQuery; bottom: JQuery };
+    get backgrounds(): { top: HTMLElement; bottom: HTMLElement } {
+        var b: { top: HTMLElement; bottom: HTMLElement };
         if (this._currentTopBackground === "1") {
             b = { top: this._backgrounds["1"], bottom: this._backgrounds["2"] };
             this._currentTopBackground = "2";
@@ -34,15 +34,15 @@ export abstract class Slider implements ISlider {
         return b;
     }
 
-    get site(): JQuery {
+    get site(): HTMLElement {
         return this._site;
     }
 
-    get navigation(): JQuery {
+    get navigation(): HTMLElement {
         return this._navigation;
     }
 
-    get glyph(): JQuery {
+    get glyph(): HTMLElement {
         return this._glyph;
     }
 
@@ -113,12 +113,26 @@ export abstract class Slider implements ISlider {
 
     private init() {
         // Ensure the host is set up to handle content and navigation sites.
-        this._host.addClass("f w-100 h-100");         
+        this._host.classList.add("f", "w-100", "h-100")
 
         // Build the sites as necessary.
-        this._backgrounds["1"] = $("<div class='fixed w-100 h-100 pe-none' style='left:0;top:0;z-index:1'/>").appendTo(this._host);
-        this._backgrounds["2"] = $("<div class='fixed w-100 h-100 pe-none d-none' style='left:0;top:0;opacity:0;z-index:0'/>").appendTo(this._host);
-        this._site = $("<div class='fixed w-100 h-100 f-none f-j-center f-ai-center' style='left:0;top:0;z-index:2'/>").appendTo(this._host);
+        this._backgrounds["1"] = document.createElement("div");
+        this._backgrounds["1"].classList.add("fixed", "w-100", "h-100", "pe-none", "z-1");
+        Velocity.hook(this._backgrounds["1"], "left", "0");
+        Velocity.hook(this._backgrounds["1"], "top", "0");
+        this._host.appendChild(this._backgrounds["1"]);
+        
+        this._backgrounds["2"] = document.createElement("div");
+        this._backgrounds["2"].classList.add("fixed", "w-100", "h-100", "pe-none", "d-none", "z-0", "o-0");
+        Velocity.hook(this._backgrounds["2"], "left", "0");
+        Velocity.hook(this._backgrounds["2"], "top", "0");
+        this._host.appendChild(this._backgrounds["2"]);
+
+        this._site = document.createElement("div");
+        this._site.classList.add("fixed", "w-100", "h-100", "f-none", "f-j-center", "f-ai-center", "z-2");
+        Velocity.hook(this._site, "left", "0");
+        Velocity.hook(this._site, "top", "0");
+        this._host.appendChild(this._site);
 
         // Initialize specific abstract items.
         this._panes = [];

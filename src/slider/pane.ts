@@ -4,16 +4,13 @@ export abstract class Pane implements IPane {
     private _id: string;
     private _parent: ISlider;
 
-    private _glyph: "square" | "round";
-
-    private _activeBackground: JQuery;
+    private _activeBackground: HTMLElement;
     protected _backgroundClass: string;
 
-    protected _site: JQuery;
+    protected _site: HTMLElement;
     
-    constructor(id: string, glyph: "square" | "round", parent: ISlider) {
+    constructor(id: string, parent: ISlider) {
         this._id = id;
-        this._glyph = glyph;
         this._parent = parent;
     }
 
@@ -21,43 +18,26 @@ export abstract class Pane implements IPane {
         return this._id;
     }
 
-    get glyph(): "square" | "round" {
-        return this._glyph;
-    }
-
     get parent(): ISlider {
         return this._parent;
     }    
 
-    enter(): Promise<void> {
-        var p: Promise<any> = new Promise((resolve, reject) => { 
-            // If the site hasn't yet been built, build it now.
-            if (!this._site) {
-                this.layout();
-            }
+    async enter(): Promise<void> {
+        // If the site hasn't yet been built, build it now.
+        if (!this._site) {
+            this.layout();
+        }
 
-            // Append to the site to the parent so we can actually start to see it.
-            this._site.appendTo(this.parent.site);
+        // Append to the site to the parent so we can actually start to see it.
+        this.parent.site.appendChild(this._site);
 
-            this.backgroundActions(this.parent.backgrounds).then(() => {
-                resolve();
-            });
-
-            this.enterActions();
-
-            // Promise.all([this.backgroundActions(this.parent.backgrounds), this.enterActions()]).then(() => {
-            //     resolve();
-            // });            
-        });        
-
-        return p;
+        await this.backgroundActions(this.parent.backgrounds);
+        await this.enterActions();
     }
 
-    exit(): Promise<void> {
-        return this.exitActions().then(() => {            
-            // Remove the site at this point because we don't need it until later.
-            this._site.detach();
-        });
+    async exit(): Promise<void> {
+        await this.exitActions();
+        this._site.remove();
     }    
 
     abstract loadAssets(): Promise<void>;
@@ -79,38 +59,31 @@ export abstract class Pane implements IPane {
         return p;
     }
 
-    private backgroundActions(targets: { top: JQuery; bottom: JQuery }): Promise<void> {
+    private backgroundActions(targets: { top: HTMLElement; bottom: HTMLElement }): Promise<void> {
         let p: Promise<void> = new Promise<void>((resolve, reject) => {
-            targets.top.velocity("stop");
-            targets.bottom.velocity("stop");
-
             // Swap the top and bottom backgrounds.
-            targets.top.css("z-index", 0);
-            targets.bottom.css("z-index", 1);            
-            targets.bottom.removeClass("d-none");            
+            Velocity.hook(targets.top, "z-index", "0");
+
+            Velocity.hook(targets.bottom, "z-index", "1");
+            targets.bottom.classList.remove("d-none");    
 
             // Apply the relevant background gradient to the correct background.
-            targets.bottom.addClass(this._backgroundClass);
-            targets.bottom.data("bg", this._backgroundClass);
+            targets.bottom.classList.add(this._backgroundClass);
+            targets.bottom.setAttribute("data-bg", this._backgroundClass);
 
-            targets.bottom.velocity(
-                { 
-                    opacity: [ 1, 0 ] 
-                }, 
-                { 
-                    duration: 800,
-                    easing: "easeOutExpo",
-                    complete: () => {
-                        targets.top.addClass("d-none");
-                        targets.top.css({ "opacity": 0 });
-                        let bg = targets.top.data("bg");
-                        if (bg) {
-                            targets.top.removeClass(bg);
-                        }
-
-                        resolve();
+            Velocity.animate(targets.bottom, { opacity: [1, 0] }, {
+                duration: 800,
+                easing: "easeOutExpo",
+                complete: () => {
+                    targets.top.classList.add("d-none", "o-0");
+                    let bg = targets.top.getAttribute("data-bg");
+                    if (bg) {
+                        targets.top.classList.remove(bg);
                     }
-                });
+
+                    resolve();
+                }
+            });
         });
 
         return p;

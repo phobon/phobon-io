@@ -2,26 +2,40 @@ import { Pane, ISlider } from "./../slider/main";
 import { delay } from "./../common";
 
 export class Contact extends Pane {
-    private _about: JQuery;
-    private _blurb: JQuery;
-    private _links: JQuery;
+    private _about: HTMLElement;
+    private _blurb: HTMLElement;
+    private _links: HTMLElement;
 
     constructor(parent: ISlider) {
-        super("contact", "square", parent);
+        super("contact", parent);
         this._backgroundClass = "gr-contact";
     }
 
     protected layout() {
-        this._site = $("<div class='contact-list f-none f-j-center f-ai-start c-white f-w w-100'/>");
-        this._about = $("<div class='f-none o-0 lh-title'><span class='d-block'>This site was coded in <a class='d-inline-block' href='https://code.visualstudio.com/' target='_blank'>VS Code</a> using <a class='d-inline-block' href='https://www.typescriptlang.org/' target='_blank'>Typescript</a>, <a class='d-inline-block' href='http://gulpjs.com/' target='_blank'>Gulp</a>, <a class='d-inline-block' href='http://velocityjs.org/' target='_blank'>Velocity</a> and <a class='d-inline-block' href='https://jquery.com/' target='_blank'>JQuery</a>.</br></br>I know a bunch about that stuff, which is pretty cool.</span></div>").appendTo(this._site);
+        this._site = document.createElement("div");
+        this._site.classList.add("contact-list", "f-none", "f-j-center", "f-ai-start", "c-white", "f-w", "w-100");
+        
+        this._about = document.createElement("div");
+        this._about.classList.add("f-none", "o-0", "lh-title");
+        this._site.appendChild(this._about);
 
-        this._blurb = $("<div class='f-none o-0 lh-title'><span class='d-block'><a class='d-inline-block' href='https://github.com/phobon/phobon-io' target='_blank'>Phobon</a> coalesced from a dark place in the void at the end of <a class='d-inline-block' href='https://en.wikipedia.org/wiki/2016' target='_blank'>2016</a>.<br/><br/>While I hope that we emerge stronger, let us never speak of that horror again.</span></div>").appendTo(this._site);
+        this._blurb = document.createElement("div");
+        this._blurb.classList.add("f-none", "o-0", "lh-title");
+        this._site.appendChild(this._blurb);
 
-        this._links = $("<ul class='f-none f-d-column c-white lh-copy o-0' />").appendTo(this._site);
-        this._links.append("<li class='f-none'><a href='https://github.com/phobon' target='_blank'>github</a></li>");
-        this._links.append("<li class='f-none m-t-nano'><a href='http://twitter.com/thenoumenon' target='_blank'>twitter</a></li>");
-        this._links.append("<li class='f-none m-t-nano'><a href='http://instagram.com/thenoumenon' target='_blank'>instagram</a></li>");
-        this._links.append("<li class='f-none m-t-nano'><a href='https://standardresume.co/benmccormick' target='_blank'>resume</a></li>");
+        this._links = document.createElement("ul");
+        this._links.classList.add("f-none", "o-0", "lh-copy", "c-white", "f-d-column");
+        this._site.appendChild(this._links);
+
+        // this._about = $("<div class='f-none o-0 lh-title'><span class='d-block'>This site was coded in <a class='d-inline-block' href='https://code.visualstudio.com/' target='_blank'>VS Code</a> using <a class='d-inline-block' href='https://www.typescriptlang.org/' target='_blank'>Typescript</a>, <a class='d-inline-block' href='http://gulpjs.com/' target='_blank'>Gulp</a>, <a class='d-inline-block' href='http://velocityjs.org/' target='_blank'>Velocity</a> and <a class='d-inline-block' href='https://jquery.com/' target='_blank'>JQuery</a>.</br></br>I know a bunch about that stuff, which is pretty cool.</span></div>").appendTo(this._site);
+
+        // this._blurb = $("<div class='f-none o-0 lh-title'><span class='d-block'><a class='d-inline-block' href='https://github.com/phobon/phobon-io' target='_blank'>Phobon</a> coalesced from a dark place in the void at the end of <a class='d-inline-block' href='https://en.wikipedia.org/wiki/2016' target='_blank'>2016</a>.<br/><br/>While I hope that we emerge stronger, let us never speak of that horror again.</span></div>").appendTo(this._site);
+
+        // this._links = $("<ul class='f-none f-d-column c-white lh-copy o-0' />").appendTo(this._site);
+        // this._links.append("<li class='f-none'><a href='https://github.com/phobon' target='_blank'>github</a></li>");
+        // this._links.append("<li class='f-none m-t-nano'><a href='http://twitter.com/thenoumenon' target='_blank'>twitter</a></li>");
+        // this._links.append("<li class='f-none m-t-nano'><a href='http://instagram.com/thenoumenon' target='_blank'>instagram</a></li>");
+        // this._links.append("<li class='f-none m-t-nano'><a href='https://standardresume.co/benmccormick' target='_blank'>resume</a></li>");
     }
 
     loadAssets(): Promise<void> {    
@@ -30,10 +44,6 @@ export class Contact extends Pane {
 
     protected enterActions(): Promise<void> {
         var p: Promise<void> = new Promise<void>((resolve, reject) => {
-            this._about.velocity("stop");
-            this._blurb.velocity("stop");
-            this._links.velocity("stop");            
-
             var s = [
                 {
                     e: this._about,
@@ -68,7 +78,7 @@ export class Contact extends Pane {
                 }
             ];
 
-            $.Velocity.RunSequence(s);
+            Velocity.RunSequence(s);
         });
 
         return p;
@@ -76,10 +86,6 @@ export class Contact extends Pane {
 
     protected exitActions(): Promise<void> {
         var p: Promise<void> = new Promise<void>((resolve, reject) => {
-            this._about.velocity("stop");
-            this._blurb.velocity("stop");
-            this._links.velocity("stop");            
-
             var s = [
                 {
                     e: this._links,
@@ -114,7 +120,7 @@ export class Contact extends Pane {
                 }
             ];
 
-            $.Velocity.RunSequence(s);
+            Velocity.RunSequence(s);
         });
 
         return p;

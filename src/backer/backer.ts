@@ -1,17 +1,17 @@
 import { IBacker } from "./models";
 
 export class Backer implements IBacker {
-    private _site: JQuery;
+    private _site: HTMLElement;
 
     private _src: string;
     private _image: HTMLImageElement;
 
-    constructor(site: JQuery, src: string) {
+    constructor(site: HTMLElement, src: string) {
         this._site = site;
         this._src = src;
     }
 
-    get site(): JQuery {
+    get site(): HTMLElement {
         return this._site;
     }
 
