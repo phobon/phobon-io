@@ -1,4 +1,5 @@
 import { Pane, ISlider } from "./../slider/main";
+import { loadImage } from "./../common";
 
 export class TheStudio extends Pane {
     private _container: HTMLElement;
@@ -29,32 +30,70 @@ export class TheStudio extends Pane {
             image: foreground
         }
 
-        await this.loadImage(background, "images/ts2.png");
-        await this.loadImage(foreground, "images/ts1.png");
-
-        return Promise.resolve();
+        await loadImage(background, "images/ts2.png");
+        await loadImage(foreground, "images/ts1.png");
     }
 
     protected layout() {
-        this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center c-white f-d-row'/>");
+        this._site = document.createElement("div");
+        this._site.classList.add("f-none", "w-100", "h-100", "f-j-center", "f-ai-center", "c-white", "f-d-row");
+        
+        this._site.appendChild(document.createElement("div")).classList.add("f");
+        
+        this._container = document.createElement("div");
+        this._container.classList.add("f-none", "text-container", "h-100", "f-j-center", "f-ai-start", "f-d-column");
+        this._site.appendChild(this._container);
 
-        this._site.append("<div class='f'/>");
-        this._container = $("<div class='f-none text-container h-100 f-j-center f-ai-start f-d-column'/>").appendTo(this._site);
-        this._header = $("<div class='header f-none c-white o-0 f-d-column'><span class='o-50 f-none year'>2016</span><span class='f-none'>The Studio<br/>Physiotherapy & Clinical Pilates.</span></div>").appendTo(this._container);
+        var headerSite = document.createElement("div");
+        headerSite.classList.add("f-none", "of-hidden");
+        this._container.appendChild(headerSite);
 
-        this._divider = $("<div class='divider to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
-        this._divider.velocity({ scaleX: 0 }, { duration: 0 });
+        this._header = document.createElement("div");
+        this._header.classList.add("f-none", "header", "c-white", "o-0", "f-d-column");
+        headerSite.appendChild(this._header);
 
-        this._details = $("<div class='detail f-none o-0'>The Studio is a boutique pilates and physiotherapy clinic located in Perth, Western Australia.<br/><br/>The brand is built around the personality and philosophy of its owner - clean, bright and striking.</dive>").appendTo(this._container);
+        var year = document.createElement("span");
+        year.classList.add("f-none", "o-50", "year");
+        year.innerText = "2016";
+        this._header.appendChild(year);
 
-        this._link = $("<div class='detail f-none o-0'><a href='http://thestudiophysio.com' target='_blank'>Check it out.</a></div>").appendTo(this._container);    
+        var title = document.createElement("span");
+        title.classList.add("f-none");
+        title.innerText = "The Studio<br/>Physiotherapy & Clinical Pilates.";
+        this._header.appendChild(title);
+
+        this._divider = document.createElement("div");
+        this._divider.classList.add("divider", "to-left", "c-white-br", "o-70");
+        this._divider.style.cssText = "width:230px;border-bottom:2px solid;transform:scale(0,1)";
+        this._container.appendChild(this._divider);
+        
+        this._details = document.createElement("div");
+        this._details.classList.add("f-none", "o-0", "detail", "lh-title");
+        this._details.innerText = "The Studio is a boutique pilates and physiotherapy clinic located in Perth, Western Australia.<br/><br/>The brand is built around the personality and philosophy of its owner - clean, bright and striking.";
+        this._container.appendChild(this._details);
+
+        //this._details = $("<div class='detail f-none o-0'>The Studio is a boutique pilates and physiotherapy clinic located in Perth, Western Australia.<br/><br/>The brand is built around the personality and philosophy of its owner - clean, bright and striking.</dive>").appendTo(this._container);
+
+        this._link = document.createElement("div");
+        this._link.classList.add("f-none", "o-0", "detail");
+        this._container.appendChild(this._link);
+
+        var l = document.createElement("a");
+        l.href = "http://thestudiophysio.com";
+        l.target = "_blank";
+        l.innerText = "Check it out.";
+        this._link.appendChild(l);      
 
         // Set up background images.
-        this._images["background"].site = $("<div class='background-img absolute f-none o-0' style='left:5rem;top:0;'/>").appendTo(this._site);
-        this._images["background"].site.append(this._images["background"].image);
+        this._images["background"].site = document.createElement("div");
+        this._images["background"].site.classList.add("background-img", "absolute", "f-none", "o-0");
+        this._images["background"].site.style.cssText = "left:5rem;top:0;";
+        this._site.appendChild(this._images["background"].site);
 
-        this._images["foreground"].site = $("<div class='background-img absolute f-none o-0' style='left:5rem;top:0;'/>").appendTo(this._site);
-        this._images["foreground"].site.append(this._images["foreground"].image);    
+        this._images["foreground"].site = document.createElement("div");
+        this._images["foreground"].site.classList.add("background-img", "absolute", "f-none", "o-0");
+        this._images["foreground"].site.style.cssText = "left:5rem;top:0;";
+        this._site.appendChild(this._images["backgforegroundround"].site); 
     }
 
     protected enterActions(): Promise<void> {

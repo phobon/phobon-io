@@ -1,4 +1,5 @@
 import { Pane, ISlider } from "./../slider/main";
+import { loadImage } from "./../common";
 
 export class Hundred extends Pane {
     private _container: HTMLElement;
@@ -29,34 +30,70 @@ export class Hundred extends Pane {
             image: foreground
         }
 
-        await this.loadImage(background, "images/second.png");
-        await this.loadImage(foreground, "images/first.png");
-
-        return Promise.resolve();
+        await loadImage(background, "images/second.png");
+        await loadImage(foreground, "images/first.png");
     }    
 
     protected layout() {
-        this._site = $("<div class='f-none w-100 h-100 f-j-center f-ai-center c-white f-d-row'/>");
-        this._container = $("<div class='text-container f-none h-100 f-j-center f-ai-start f-d-column z1'/>").appendTo(this._site);
+        this._site = document.createElement("div");
+        this._site.classList.add("f-none", "w-100", "h-100", "f-j-center", "f-ai-center", "c-white", "f-d-row");
+
+        this._container = document.createElement("div");
+        this._container.classList.add("text-container", "f-none", "h-100", "f-j-center", "f-ai-start", "f-d-column ", "z-1")
+        this._site.appendChild(this._container);
         
-        var headerSite = $("<div class='f-none of-hidden'/>").appendTo(this._container);
-        this._header = $("<div class='f-none header c-white o-0 f-d-column'><span class='f-none o-50 year'>2016</span><span class='f-none'>Hundred.</span></div>").appendTo(headerSite);
+        var headerSite = document.createElement("div");
+        headerSite.classList.add("f-none", "of-hidden");
+        this._container.appendChild(headerSite);
 
-        this._divider = $("<div class='divider to-left c-white-br o-70' style='width:230px;border-bottom:2px solid'/>").appendTo(this._container);
-        this._divider.velocity({ scaleX: 0 }, { duration: 0 });
+        this._header = document.createElement("div");
+        this._header.classList.add("f-none", "header", "c-white", "o-0", "f-d-column");
+        headerSite.appendChild(this._header);
 
-        this._details = $("<div class='f-none o-0 detail lh-title'><span class='d-block'>100 days of experimentation in user interface and experience design inspired by <a class='d-inline-block' href='http://www.dailyui.co/'>Daily UI</a>.<br/><br/>I started this ordeal on <a class='d-inline-block' target='_blank' href='https://thegrid.ai/100ui/1-signup/'>Dec 15, 2015</a> and finished on <a class='d-inline-block' href='https://twitter.com/thenoumenon/status/727319863266418688'>May 3, 2016</a>.</div>").appendTo(this._container);
+        var year = document.createElement("span");
+        year.classList.add("f-none", "o-50", "year");
+        year.innerText = "2016";
+        this._header.appendChild(year);
 
-        this._link = $("<div class='f-none o-0 detail'><a href='http://phobon.io/100' target='_blank'>Check it out.</a></div>").appendTo(this._container);
+        var title = document.createElement("span");
+        title.classList.add("f-none");
+        title.innerText = "Hundred.";
+        this._header.appendChild(title);
 
-        this._site.append("<div class='f'/>");
+        this._divider = document.createElement("div");
+        this._divider.classList.add("divider", "to-left", "c-white-br", "o-70");
+        this._divider.style.cssText = "width:230px;border-bottom:2px solid;transform:scale(0,1)";
+        this._container.appendChild(this._divider);
+
+        this._details = document.createElement("div");
+        this._details.classList.add("f-none", "o-0", "detail", "lh-title");
+        this._details.innerText = "100 days of experimentation in user interface and experience design inspired by.<br/><br/>I started this ordeal on Dec 15, 2015 and finished on May 3, 2016.";
+        this._container.appendChild(this._details);
+
+        //this._details = $("<div class='f-none o-0 detail lh-title'><span class='d-block'>100 days of experimentation in user interface and experience design inspired by <a class='d-inline-block' href='http://www.dailyui.co/'>Daily UI</a>.<br/><br/>I started this ordeal on <a class='d-inline-block' target='_blank' href='https://thegrid.ai/100ui/1-signup/'>Dec 15, 2015</a> and finished on <a class='d-inline-block' href='https://twitter.com/thenoumenon/status/727319863266418688'>May 3, 2016</a>.</div>").appendTo(this._container);
+
+        this._link = document.createElement("div");
+        this._link.classList.add("f-none", "o-0", "detail");
+        this._container.appendChild(this._link);
+
+        var l = document.createElement("a");
+        l.href = "http://phobon.io/100";
+        l.target = "_blank";
+        l.innerText = "Check it out.";
+        this._link.appendChild(l);        
+
+        this._site.appendChild(document.createElement("div")).classList.add("f");
 
         // Set up background images.
-        this._images["background"].site = $("<div class='absolute f-none o-0' style='right:0;bottom:0;'/>").appendTo(this._site);
-        this._images["background"].site.append(this._images["background"].image);
+        this._images["background"].site = document.createElement("div");
+        this._images["background"].site.classList.add("absolute", "f-none", "o-0");
+        this._images["background"].site.style.cssText = "right:0;bottom:0;";
+        this._site.appendChild(this._images["background"].site);
 
-        this._images["foreground"].site = $("<div class='absolute f-none o-0' style='right:0;bottom:0;'/>").appendTo(this._site);
-        this._images["foreground"].site.append(this._images["foreground"].image);
+        this._images["foreground"].site = document.createElement("div");
+        this._images["foreground"].site.classList.add("absolute", "f-none", "o-0");
+        this._images["foreground"].site.style.cssText = "right:0;bottom:0;";
+        this._site.appendChild(this._images["foreground"].site);
     }
 
     protected enterActions(): Promise<void> {

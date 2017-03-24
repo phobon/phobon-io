@@ -45,19 +45,7 @@ export abstract class Pane implements IPane {
     protected abstract layout();
 
     protected abstract enterActions(): Promise<void>;
-    protected abstract exitActions(): Promise<void>;        
-
-    protected loadImage(image: HTMLImageElement, src: string): Promise<void> {
-        var p: Promise<void> = new Promise<void>((resolve, reject) => {
-            image.onload = () => {
-                resolve();
-            };
-
-            image.src = src;
-        });
-
-        return p;
-    }
+    protected abstract exitActions(): Promise<void>;     
 
     private backgroundActions(targets: { top: HTMLElement; bottom: HTMLElement }): Promise<void> {
         let p: Promise<void> = new Promise<void>((resolve, reject) => {

@@ -103,12 +103,9 @@ export abstract class Slider implements ISlider {
     protected abstract updateNavigation(args: { previous?: IPane; current: IPane }): Promise<void>;
 
     private async loadAssets(): Promise<void> {
-        // Use some snazzy async/await stuff here.
         for (var i = 0; i < this.panes.length; i++) {
             await this.panes[i].loadAssets();
         }
-
-        return Promise.resolve();
     }
 
     private init() {
@@ -118,20 +115,17 @@ export abstract class Slider implements ISlider {
         // Build the sites as necessary.
         this._backgrounds["1"] = document.createElement("div");
         this._backgrounds["1"].classList.add("fixed", "w-100", "h-100", "pe-none", "z-1");
-        Velocity.hook(this._backgrounds["1"], "left", "0");
-        Velocity.hook(this._backgrounds["1"], "top", "0");
+        this._backgrounds["1"].style.cssText = "left:0;top:0";
         this._host.appendChild(this._backgrounds["1"]);
         
         this._backgrounds["2"] = document.createElement("div");
         this._backgrounds["2"].classList.add("fixed", "w-100", "h-100", "pe-none", "d-none", "z-0", "o-0");
-        Velocity.hook(this._backgrounds["2"], "left", "0");
-        Velocity.hook(this._backgrounds["2"], "top", "0");
+        this._backgrounds["2"].style.cssText = "left:0;top:0";
         this._host.appendChild(this._backgrounds["2"]);
 
         this._site = document.createElement("div");
         this._site.classList.add("fixed", "w-100", "h-100", "f-none", "f-j-center", "f-ai-center", "z-2");
-        Velocity.hook(this._site, "left", "0");
-        Velocity.hook(this._site, "top", "0");
+        this._site.style.cssText = "left:0;top:0";
         this._host.appendChild(this._site);
 
         // Initialize specific abstract items.

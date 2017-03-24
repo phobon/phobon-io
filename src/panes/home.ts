@@ -30,10 +30,8 @@ export class Home extends Pane {
         this._site.appendChild(iconSite);
         
         this._icon = document.createElement("div");
-        this._icon.classList.add("f-none", "c-gray-ll-f", "c-gray-ll-tt-bg", "br-ra-huge", "o-0");
+        this._icon.classList.add("f-none", "c-gray-ll-f", "c-gray-ll-tt-bg", "br-ra-huge", "o-0", "phobon-glyph");
         iconSite.appendChild(this._icon);
-
-        // TODO: Phobon glyph in CSS
 
         this._header = document.createElement("div");
         this._header.classList.add("f-none", "w-80", "o-0", "f-d-row", "f-w");

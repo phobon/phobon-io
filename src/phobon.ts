@@ -1,12 +1,9 @@
 import { ISlider, Slider, IPane } from "./slider/main";
-import { phobonGlyph } from "./common";
 import * as Panes from "./panes/main";
 
 var instance: ISlider;
 
 class Phobon extends Slider {
-    private static _phobonExpanded: string = '<svg xmlns="http://www.w3.org/2000/svg" style="width:3.75rem;height:5.9375rem" viewBox="0 0 60 95"><polygon points="0 0 0 25 5 25 5 5 20 5 20 20 25 20 25 0 0 0"/><rect class="cls-1" x="15" y="20" width="5" height="5"/><polygon points="40 0 35 0 35 25 40 25 40 15 45 15 45 10 40 10 40 0"/><polygon points="55 0 55 10 50 10 50 15 55 15 55 25 60 25 60 0 55 0"/><polygon points="55 40 55 55 40 55 40 35 35 35 35 60 60 60 60 40 55 40"/><rect x="50" y="35" width="5" height="5"/><polygon points="35 70 35 95 40 95 40 75 55 75 55 70 35 70"/><rect x="55" y="75" width="5" height="20"/><polygon points="0 35 0 55 5 55 5 40 20 40 20 55 5 55 5 60 25 60 25 35 0 35"/><polygon points="0 70 0 90 5 90 5 75 20 75 20 90 5 90 5 95 25 95 25 70 0 70"/></svg>';
-
     private _loadingSite: HTMLElement;
     private _loadingContent: HTMLElement;
 
@@ -23,19 +20,11 @@ class Phobon extends Slider {
 
     protected initGlyph() {    
         this._glyph = document.createElement("div");
-        this._glyph.classList.add("z-6", "absolute", "m-large", "c-white-f", "o-80", "cur-pointer", "transition-s");
+        this._glyph.classList.add("z-6", "absolute", "m-large", "c-white-f", "o-80", "cur-pointer", "transition-s", "phobon-glyph", "nav-phobon-glyph");
         this._glyph.style.cssText = "top:0;right:0";
-        this._glyph.addEventListener("mouseenter", () => {
-            this._glyph.classList.remove("o-80");
-        });
-        this._glyph.addEventListener("mouseleave", () => {
-            this._glyph.classList.add("o-80");
-        });
         this._glyph.addEventListener("click", () => {
             this.currentPane = this.panes[0];
         });
-
-        // TODO: SVG in css.
     }
 
     protected initNavigation() {
@@ -100,9 +89,8 @@ class Phobon extends Slider {
             ];
             
             this._loadingContent = document.createElement("div");
-            this._loadingContent.classList.add("f-none", "c-white-f", "o-0", "f-j-center", "f-ai-center", "z-1");
+            this._loadingContent.classList.add("f-none", "c-white-f", "o-0", "f-j-center", "f-ai-center", "z-1", "phobon-glyph-expanded");
             this._loadingSite.appendChild(this._loadingContent);
-            // TODO: Add css svg element.
 
             Velocity.animate(this._loadingSite, { scaleX: 0, scaleY: 0.05 }, { duration: 0 });
             Velocity.animate(this._loadingContent, { scaleX: 0.8, scaleY: 0.8 }, { duration: 0 });
